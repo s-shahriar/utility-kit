@@ -53,14 +53,16 @@
   border: 1px solid var(--border-md);
   border-radius: 28px;
   padding: 4px;
+  /* cap width so it never overflows viewport */
   width: fit-content;
+  max-width: calc(100vw - 32px);
   margin: 16px auto 0;
   box-shadow: var(--shadow-sm);
 }
 
 .ft-tab-btn {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 8px 18px;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px;
   border-radius: 22px;
   font-family: 'Space Grotesk', sans-serif;
   font-size: 0.83rem; font-weight: 700;

@@ -56,10 +56,10 @@ export default function FinancialTerms({ onBack }) {
             className="ft-topbar-count"
             style={{cursor:'pointer',borderColor:'rgba(245,158,11,0.35)',color:'#b45309',background:'rgba(245,158,11,0.1)'}}
             onClick={() => setTab('nailed')}
-            title="Nailed প্রশ্নগুলো দেখুন"
+            title="নেইলড প্রশ্নগুলো দেখুন"
           >
             <Star size={11} fill="currentColor" style={{marginRight:4,verticalAlign:'middle'}} />
-            {nailed.size} Nailed
+            {nailed.size} নেইলড
           </button>
         )}
       </div>
@@ -71,7 +71,7 @@ export default function FinancialTerms({ onBack }) {
             <BookOpen size={14} /> রেফারেন্স
           </button>
           <button className={`ft-tab-btn${tab === 'quiz' ? ' active' : ''}`} onClick={() => setTab('quiz')}>
-            <Zap size={14} /> কুইজ ({FIN_QUIZ.length}টি)
+            <Zap size={14} /> কুইজ
           </button>
           <button
             className={`ft-tab-btn${tab === 'nailed' ? ' active' : ''}`}
@@ -79,7 +79,7 @@ export default function FinancialTerms({ onBack }) {
             style={tab !== 'nailed' && nailed.size > 0 ? {color:'#b45309'} : {}}
           >
             <Star size={14} fill={nailed.size > 0 ? 'currentColor' : 'none'} />
-            Nailed
+            নেইলড
             {nailed.size > 0 && (
               <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:11,background:'rgba(245,158,11,0.15)',color:'#b45309',padding:'1px 6px',borderRadius:8,marginLeft:2}}>
                 {nailed.size}
@@ -215,7 +215,7 @@ function QuizConfig({ onStart }) {
       <div className="exam-config-hero">
         <div className="exam-config-icon"><Zap size={30} /></div>
         <h1 className="exam-config-title">কুইজ মোড</h1>
-        <p className="exam-config-sub">টপিক বেছে নাও — প্রশ্ন সংখ্যা ঠিক করো — শুরু করো</p>
+        <p className="exam-config-sub">টপিক বেছে নাও<br />প্রশ্ন সংখ্যা ঠিক করো — শুরু করো</p>
       </div>
 
       <div className="exam-config-form">

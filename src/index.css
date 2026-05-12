@@ -668,7 +668,7 @@ button { cursor: pointer; border: none; background: none; color: inherit; font-f
 /* ════════════════════════════════════════════════════ */
 /* ── EXAM CONFIG ─────────────────────────────────── */
 /* ════════════════════════════════════════════════════ */
-.exam-config-page { max-width: 520px; margin: 0 auto; padding: 28px 16px 80px; }
+.exam-config-page { width: 100%; max-width: 520px; margin: 0 auto; padding: 28px 16px 80px; box-sizing: border-box; }
 
 .exam-config-hero { text-align: center; margin: 36px 0 40px; }
 .exam-config-icon {
@@ -687,20 +687,28 @@ button { cursor: pointer; border: none; background: none; color: inherit; font-f
   background-clip: text; animation: gradientFlow 6s linear infinite;
   margin-bottom: 10px;
 }
-.exam-config-sub { color: var(--text-2); font-size: 0.9rem; line-height: 1.6; }
+.exam-config-sub {
+  color: var(--text-2); font-size: 0.9rem; line-height: 1.6;
+  padding: 0 4px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
 
 .exam-config-form {
   background: var(--surface-glass); border: 1px solid var(--border-md);
-  border-radius: 20px; padding: 28px 24px;
+  border-radius: 20px; padding: 24px 20px;
   box-shadow: var(--shadow-md); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
   display: flex; flex-direction: column; gap: 24px;
+  width: 100%; box-sizing: border-box;
 }
 
 .exam-field { display: flex; flex-direction: column; gap: 10px; }
 .exam-label {
   font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 700;
   letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3);
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 8px; flex-wrap: wrap;
 }
 .exam-max-hint {
   font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 500;
