@@ -9,7 +9,7 @@ const SECTIONS = [
   { id: 'quad',     label: 'চতুর্ভুজ' },
   { id: 'circle',   label: 'বৃত্ত ও বহুভুজ' },
   { id: 'solid',    label: 'ঘনবস্তু' },
-  { id: 'curved',   label: 'বেলন/শঙ্কু/গোলক' },
+  { id: 'curved',   label: 'সিলিন্ডার/Cone/গোলক' },
   { id: 'algebra',  label: 'বীজগণিত' },
   { id: 'series',   label: 'ধারা' },
   { id: 'pnc',      label: 'বিন্যাস-সমাবেশ' },
@@ -118,13 +118,13 @@ export default function MathFormulas({ onBack }) {
               <CardTitle badge="Isosceles" badgeStyle={{background:'rgba(91,164,245,.15)',color:'var(--mf-blue)',borderColor:'rgba(91,164,245,.3)'}}>সমদ্বিবাহু ত্রিভুজ</CardTitle>
               <div style={{textAlign:'center',margin:'10px 0'}}>
                 <svg width="140" height="115" viewBox="0 0 140 115">
-                  <polygon points="70,8 122,110 18,110" fill="rgba(91,164,245,.06)" stroke="#5ba4f5" strokeWidth="2"/>
-                  <text x="100" y="63" fill="#5ba4f5" fontSize="13" fontWeight="700">a</text>
-                  <text x="28" y="63" fill="#5ba4f5" fontSize="13" fontWeight="700">a</text>
-                  <text x="63" y="108" fill="#f0a500" fontSize="13" fontWeight="700">b</text>
+                  <polygon points="70,8 122,110 18,110" fill="rgba(91,164,245,.08)" stroke="#5ba4f5" strokeWidth="2"/>
+                  <text x="99" y="61" fill="#5ba4f5" fontSize="13" fontWeight="700">a</text>
+                  <text x="31" y="61" fill="#5ba4f5" fontSize="13" fontWeight="700">a</text>
                   <line x1="70" y1="8" x2="70" y2="110" stroke="#ffd166" strokeWidth="1.5" strokeDasharray="4,3"/>
-                  <text x="73" y="60" fill="#ffd166" fontSize="11">h</text>
-                  <rect x="66" y="100" width="8" height="8" fill="none" stroke="#ffd166" strokeWidth="1"/>
+                  <text x="74" y="57" fill="#ffd166" fontSize="11" fontWeight="600">h</text>
+                  <rect x="70" y="102" width="8" height="8" fill="none" stroke="#ffd166" strokeWidth="1.2"/>
+                  <text x="55" y="108" fill="#f0a500" fontSize="13" fontWeight="700">b</text>
                 </svg>
               </div>
               <FBox label="ক্ষেত্রফল" val="= (b/4) × √(4a²−b²)" highlight/>
@@ -136,10 +136,10 @@ export default function MathFormulas({ onBack }) {
               <CardTitle badge="Scalene / Heron" badgeStyle={{background:'rgba(240,108,126,.12)',color:'var(--mf-rose)',borderColor:'rgba(240,108,126,.25)'}}>বিষমবাহু ত্রিভুজ</CardTitle>
               <div style={{textAlign:'center',margin:'10px 0'}}>
                 <svg width="140" height="115" viewBox="0 0 140 115">
-                  <polygon points="30,110 125,110 65,15" fill="rgba(240,108,126,.06)" stroke="#f06d7e" strokeWidth="2"/>
-                  <text x="91" y="68" fill="#f06d7e" fontSize="13" fontWeight="700">b</text>
-                  <text x="37" y="68" fill="#f06d7e" fontSize="13" fontWeight="700">a</text>
-                  <text x="73" y="108" fill="#f06d7e" fontSize="13" fontWeight="700">c</text>
+                  <polygon points="15,106 118,106 82,14" fill="rgba(240,108,126,.08)" stroke="#f06d7e" strokeWidth="2"/>
+                  <text x="30" y="65" fill="#f06d7e" fontSize="13" fontWeight="700">a</text>
+                  <text x="103" y="65" fill="#f06d7e" fontSize="13" fontWeight="700">b</text>
+                  <text x="60" y="104" fill="#f06d7e" fontSize="13" fontWeight="700">c</text>
                 </svg>
               </div>
               <FBox label="ক্ষেত্রফল" val="= √(s(s−a)(s−b)(s−c))" highlight/>
@@ -154,10 +154,10 @@ export default function MathFormulas({ onBack }) {
               <div style={{textAlign:'center',margin:'10px 0'}}>
                 <svg width="160" height="110" viewBox="0 0 160 110">
                   <polygon points="10,100 150,100 50,15" fill="rgba(167,139,250,.06)" stroke="#a78bfa" strokeWidth="2"/>
-                  <text x="75" y="112" fill="#a78bfa" fontSize="13" fontWeight="700">a</text>
+                  <text x="75" y="108" fill="#a78bfa" fontSize="13" fontWeight="700">a</text>
                   <text x="9" y="58" fill="#a78bfa" fontSize="13" fontWeight="700">b</text>
-                  <path d="M 30 100 A 18 18 0 0 1 22 82" fill="none" stroke="#f0a500" strokeWidth="1.8"/>
-                  <text x="30" y="88" fill="#f0a500" fontSize="11">θ</text>
+                  <path d="M 26 100 A 16 16 0 0 0 17 86" fill="none" stroke="#f0a500" strokeWidth="1.8"/>
+                  <text x="24" y="95" fill="#f0a500" fontSize="11" fontWeight="600">θ</text>
                 </svg>
               </div>
               <FBox label="ক্ষেত্রফল" val="= ½ × a × b × sin θ" highlight/>
@@ -166,6 +166,13 @@ export default function MathFormulas({ onBack }) {
 
             <Card color="gold">
               <CardTitle>সর্বসমতার শর্ত (Congruence)</CardTitle>
+              <div className="mf-legend">
+                <span><strong>SAS</strong> Side-Angle-Side</span>
+                <span><strong>SSS</strong> Side-Side-Side</span>
+                <span><strong>ASA</strong> Angle-Side-Angle</span>
+                <span><strong>AAS</strong> Angle-Angle-Side</span>
+                <span><strong>RHS</strong> Right-Hypotenuse-Side</span>
+              </div>
               <ul className="mf-prop-list">
                 <li><span className="mf-tag g">SAS</span> দুই বাহু ও অন্তর্ভুক্ত কোণ সমান</li>
                 <li><span className="mf-tag g">SSS</span> তিন বাহু সমান</li>
@@ -188,13 +195,13 @@ export default function MathFormulas({ onBack }) {
                 <FBox label="স্থূলকোণী হলে" val="বৃহত্তম বাহুর² > অন্য দুই বাহুর² যোগফল"/>
               </div>
               <div style={{textAlign:'center',padding:10}}>
-                <svg width="160" height="130" viewBox="0 0 160 130">
-                  <polygon points="10,120 130,120 10,20" fill="rgba(240,165,0,.05)" stroke="#f0a500" strokeWidth="2"/>
-                  <rect x="10" y="110" width="12" height="12" fill="none" stroke="#ffd166" strokeWidth="1.5"/>
-                  <text x="58" y="116" fill="#0fdba8" fontSize="12">a (ভূমি)</text>
-                  <text x="4" y="75" fill="#0fdba8" fontSize="12" transform="rotate(-90,15,75)">b (লম্ব)</text>
-                  <text x="62" y="70" fill="#f0a500" fontSize="12" fontWeight="700" transform="rotate(-39,72,65)">c = √(a²+b²)</text>
-                  <text x="2" y="128" fill="#ffd166" fontSize="11">90°</text>
+                <svg width="160" height="132" viewBox="0 0 160 132">
+                  <polygon points="14,112 134,112 14,16" fill="rgba(240,165,0,.07)" stroke="#f0a500" strokeWidth="2"/>
+                  <rect x="14" y="100" width="12" height="12" fill="none" stroke="#ffd166" strokeWidth="1.5"/>
+                  <text x="28" y="110" fill="#ffd166" fontSize="10">90°</text>
+                  <text x="74" y="126" fill="#0fdba8" fontSize="12" textAnchor="middle">a (ভূমি)</text>
+                  <text x="8" y="64" fill="#0fdba8" fontSize="12" textAnchor="middle" transform="rotate(-90,8,64)">b (লম্ব)</text>
+                  <text x="82" y="55" fill="#f0a500" fontSize="11" fontWeight="700" textAnchor="middle" transform="rotate(40,82,55)">c = √(a²+b²)</text>
                 </svg>
               </div>
             </div>
@@ -209,24 +216,24 @@ export default function MathFormulas({ onBack }) {
           <Card color="teal" style={{marginBottom:16}}>
             <CardTitle color="var(--mf-teal)">✋ কৌশলটি কীভাবে কাজ করে?</CardTitle>
             <div style={{display:'flex', flexWrap:'wrap', gap:16, alignItems:'flex-start', margin:'10px 0'}}>
-              {/* Hand diagram — all fingers up */}
+              {/* Hand diagram — pinky left, thumb right */}
               <div style={{flexShrink:0}}>
-                <svg width="160" height="130" viewBox="0 0 160 130">
+                <svg width="165" height="135" viewBox="0 0 165 135">
                   {/* Palm */}
-                  <rect x="15" y="88" width="130" height="30" rx="10" fill="rgba(15,219,168,.08)" stroke="#0fdba8" strokeWidth="1.5"/>
-                  {/* 5 upright fingers with angle labels */}
+                  <rect x="10" y="92" width="145" height="28" rx="10" fill="rgba(15,219,168,.08)" stroke="#0fdba8" strokeWidth="1.5"/>
+                  {/* Fingers: pinky→thumb, left→right, varying heights */}
                   {[
-                    {x:28,  deg:'0°',  color:'#f0a500', name:'বুড়ো'},
-                    {x:55,  deg:'30°', color:'#0fdba8', name:'তর্জনী'},
-                    {x:80,  deg:'45°', color:'#5ba4f5', name:'মধ্যমা'},
-                    {x:105, deg:'60°', color:'#a78bfa', name:'অনামিকা'},
-                    {x:132, deg:'90°', color:'#f06d7e', name:'কনিষ্ঠা'},
-                  ].map((f, i) => (
+                    {x:26,  w:20, h:48, deg:'90°', color:'#f06d7e', name:'কনিষ্ঠা'},
+                    {x:54,  w:22, h:60, deg:'60°', color:'#a78bfa', name:'অনামিকা'},
+                    {x:82,  w:22, h:68, deg:'45°', color:'#5ba4f5', name:'মধ্যমা'},
+                    {x:110, w:22, h:62, deg:'30°', color:'#0fdba8', name:'তর্জনী'},
+                    {x:138, w:24, h:46, deg:'0°',  color:'#f0a500', name:'বুড়ো'},
+                  ].map((f,i) => (
                     <g key={i}>
-                      <rect x={f.x-12} y={22} width={24} height={68} rx={7}
+                      <rect x={f.x-f.w/2} y={92-f.h} width={f.w} height={f.h} rx={8}
                         fill={`${f.color}18`} stroke={f.color} strokeWidth="1.8"/>
-                      <text x={f.x} y={17} textAnchor="middle" fill={f.color} fontSize="9" fontWeight="700">{f.deg}</text>
-                      <text x={f.x} y={126} textAnchor="middle" fill={f.color} fontSize="8">{f.name}</text>
+                      <text x={f.x} y={92-f.h-4} textAnchor="middle" fill={f.color} fontSize="9" fontWeight="700">{f.deg}</text>
+                      <text x={f.x} y={131} textAnchor="middle" fill={f.color} fontSize="8">{f.name}</text>
                     </g>
                   ))}
                 </svg>
@@ -239,11 +246,11 @@ export default function MathFormulas({ onBack }) {
                     <strong style={{color:'var(--mf-teal)'}}>ধাপ ১:</strong> যে কোণের মান চাও সেই আঙুল <strong>ভাঁজ</strong> করো।
                   </div>
                   <div style={{background:'var(--elevated)', borderRadius:10, padding:'10px 14px', marginBottom:10, borderLeft:'3px solid var(--mf-gold)'}}>
-                    <strong style={{color:'var(--mf-gold)'}}>ধাপ ২ — sin:</strong> ভাঁজ করা আঙুলের <strong>বাম দিকে</strong> কতটি আঙুল আছে গণো → সেই সংখ্যা = n<br/>
+                    <strong style={{color:'var(--mf-gold)'}}>ধাপ ২ — sin:</strong> ভাঁজ করা আঙুলের <strong>ডান দিকে</strong> কতটি আঙুল আছে গণো → সেই সংখ্যা = n<br/>
                     <strong>sin θ = √n / 2</strong>
                   </div>
                   <div style={{background:'var(--elevated)', borderRadius:10, padding:'10px 14px', borderLeft:'3px solid var(--mf-blue)'}}>
-                    <strong style={{color:'var(--mf-blue)'}}>ধাপ ৩ — cos:</strong> ভাঁজ করা আঙুলের <strong>ডান দিকে</strong> কতটি আঙুল আছে গণো → সেই সংখ্যা = n<br/>
+                    <strong style={{color:'var(--mf-blue)'}}>ধাপ ৩ — cos:</strong> ভাঁজ করা আঙুলের <strong>বাম দিকে</strong> কতটি আঙুল আছে গণো → সেই সংখ্যা = n<br/>
                     <strong>cos θ = √n / 2</strong>
                   </div>
                 </div>
@@ -270,43 +277,54 @@ export default function MathFormulas({ onBack }) {
                 <div style={{fontFamily:"'Space Grotesk',sans-serif", fontWeight:800, fontSize:18, color:'var(--mf-gold)', marginBottom:8}}>
                   {r.angle}
                 </div>
-                {/* Finger visual: 5 boxes, fi-th is folded */}
-                <svg width="100%" height="64" viewBox="0 0 160 64" style={{display:'block', marginBottom:6}}>
-                  {[0,1,2,3,4].map(i => {
-                    const isFold = i === r.fi
-                    const isLeft = i < r.fi
-                    const x = 8 + i * 30
-                    const color = isFold ? '#f0a500' : isLeft ? '#0fdba8' : '#5ba4f5'
-                    return isFold ? (
-                      // Folded finger — bent low
-                      <g key={i}>
-                        <rect x={x} y={36} width={24} height={14} rx={5}
-                          fill="rgba(240,165,0,.2)" stroke="#f0a500" strokeWidth="2"/>
-                        <text x={x+12} y={31} textAnchor="middle" fill="#f0a500" fontSize="9" fontWeight="700">✕</text>
-                      </g>
-                    ) : (
-                      // Standing finger
-                      <g key={i}>
-                        <rect x={x} y={8} width={24} height={42} rx={6}
-                          fill={`${color}18`} stroke={color} strokeWidth="1.8"/>
-                      </g>
-                    )
-                  })}
-                  {/* Left count label */}
-                  {r.left > 0 && (
-                    <text x={8 + (r.fi-1)*30/2 + 8} y={60} textAnchor="middle"
-                      fill="#0fdba8" fontSize="9" fontWeight="700">
-                      ← {r.left}
-                    </text>
-                  )}
-                  {/* Right count label */}
-                  {r.right > 0 && (
-                    <text x={8 + (r.fi+1)*30 + (r.right-1)*15} y={60}
-                      textAnchor="middle" fill="#5ba4f5" fontSize="9" fontWeight="700">
-                      {r.right} →
-                    </text>
-                  )}
-                </svg>
+                {/* Finger visual — display order: pinky(90°) left → thumb(0°) right */}
+                {(() => {
+                  // finger index: 0=thumb, 4=pinky
+                  // display left→right: [4,3,2,1,0] = pinky→thumb
+                  const fHeights = [30, 40, 46, 40, 28]
+                  const fWidths  = [22, 20, 20, 20, 18]
+                  const baseY = 52, gap = 30, startX = 6
+                  const displayOrder = [4,3,2,1,0]
+                  const foldDisp = 4 - r.fi   // display position of the folded finger
+                  return (
+                  <svg width="100%" height="70" viewBox="0 0 160 70" style={{display:'block', marginBottom:6}}>
+                    {displayOrder.map((fi, dispPos) => {
+                      const isFold   = fi === r.fi
+                      const isSinSide = fi < r.fi   // to the RIGHT in display → sin side (teal)
+                      const x = startX + dispPos * gap
+                      const w = fWidths[fi], h = fHeights[fi]
+                      const color = isFold ? '#f0a500' : isSinSide ? '#0fdba8' : '#5ba4f5'
+                      return isFold ? (
+                        <g key={fi}>
+                          <rect x={x} y={baseY-10} width={w} height={10} rx={4}
+                            fill="rgba(240,165,0,.22)" stroke="#f0a500" strokeWidth="2"/>
+                          <text x={x+w/2} y={baseY-14} textAnchor="middle"
+                            fill="#f0a500" fontSize="9" fontWeight="800">✕</text>
+                        </g>
+                      ) : (
+                        <g key={fi}>
+                          <rect x={x} y={baseY-h} width={w} height={h} rx={7}
+                            fill={`${color}18`} stroke={color} strokeWidth="1.8"/>
+                        </g>
+                      )
+                    })}
+                    {/* LEFT of fold = cos side (blue) = r.right fingers */}
+                    {r.right > 0 && (
+                      <text x={startX + (foldDisp-1)*gap/2 + 10} y={66}
+                        textAnchor="middle" fill="#5ba4f5" fontSize="9" fontWeight="700">
+                        ← {r.right}
+                      </text>
+                    )}
+                    {/* RIGHT of fold = sin side (teal) = r.left fingers */}
+                    {r.left > 0 && (
+                      <text x={startX + (foldDisp+1)*gap + (r.left-1)*gap/2 + 10} y={66}
+                        textAnchor="middle" fill="#0fdba8" fontSize="9" fontWeight="700">
+                        {r.left} →
+                      </text>
+                    )}
+                  </svg>
+                  )
+                })()}
                 {/* Derived values */}
                 <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:6, fontSize:12}}>
                   <div style={{background:'rgba(15,219,168,.08)', borderRadius:8, padding:'6px 8px'}}>
@@ -373,11 +391,11 @@ export default function MathFormulas({ onBack }) {
                 <svg width="140" height="120" viewBox="0 0 140 120">
                   <polygon points="70,8 128,112 12,112" fill="rgba(167,139,250,.06)" stroke="#a78bfa" strokeWidth="1.5"/>
                   <line x1="70" y1="8" x2="70" y2="112" stroke="#a78bfa" strokeWidth="1.2" strokeDasharray="3,2"/>
-                  <line x1="12" y1="112" x2="99" y2="60" stroke="#a78bfa" strokeWidth="1.2" strokeDasharray="3,2"/>
-                  <line x1="128" y1="112" x2="41" y2="60" stroke="#a78bfa" strokeWidth="1.2" strokeDasharray="3,2"/>
-                  <circle cx="70" cy="81" r="18" fill="none" stroke="#f0a500" strokeWidth="1.5" strokeDasharray="2,2"/>
-                  <circle cx="70" cy="81" r="4" fill="#f0a500"/>
-                  <text x="74" y="79" fill="#f0a500" fontSize="11">I</text>
+                  <line x1="12" y1="112" x2="99" y2="61" stroke="#a78bfa" strokeWidth="1.2" strokeDasharray="3,2"/>
+                  <line x1="128" y1="112" x2="41" y2="61" stroke="#a78bfa" strokeWidth="1.2" strokeDasharray="3,2"/>
+                  <circle cx="70" cy="78" r="34" fill="none" stroke="#f0a500" strokeWidth="1.5" strokeDasharray="2,2"/>
+                  <circle cx="70" cy="78" r="4" fill="#f0a500"/>
+                  <text x="74" y="76" fill="#f0a500" fontSize="11">I</text>
                 </svg>
               </div>
               <ul className="mf-prop-list">
@@ -391,14 +409,14 @@ export default function MathFormulas({ onBack }) {
             <Card color="teal">
               <CardTitle color="var(--mf-teal)" badge="Circumcentre">পরিকেন্দ্র</CardTitle>
               <div style={{textAlign:'center',margin:'10px 0'}}>
-                <svg width="140" height="120" viewBox="0 0 140 120">
+                <svg width="140" height="150" viewBox="0 0 140 150">
                   <polygon points="70,8 128,112 12,112" fill="rgba(15,219,168,.05)" stroke="#0fdba8" strokeWidth="1.5"/>
-                  <line x1="70" y1="60" x2="70" y2="112" stroke="#0fdba8" strokeWidth="1.2" strokeDasharray="3,2"/>
-                  <line x1="12" y1="112" x2="128" y2="60" stroke="#0fdba8" strokeWidth="1.2" strokeDasharray="3,2"/>
                   <line x1="70" y1="8" x2="70" y2="112" stroke="#0fdba8" strokeWidth="1.2" strokeDasharray="3,2"/>
-                  <circle cx="70" cy="65" r="57" fill="none" stroke="#f0a500" strokeWidth="1.3" strokeDasharray="2,3"/>
-                  <circle cx="70" cy="65" r="4" fill="#f0a500"/>
-                  <text x="74" y="63" fill="#f0a500" fontSize="11">O</text>
+                  <line x1="41" y1="60" x2="125" y2="106" stroke="#0fdba8" strokeWidth="1.2" strokeDasharray="3,2"/>
+                  <line x1="99" y1="60" x2="15" y2="107" stroke="#0fdba8" strokeWidth="1.2" strokeDasharray="3,2"/>
+                  <circle cx="70" cy="76" r="68" fill="none" stroke="#f0a500" strokeWidth="1.3" strokeDasharray="2,3"/>
+                  <circle cx="70" cy="76" r="4" fill="#f0a500"/>
+                  <text x="74" y="74" fill="#f0a500" fontSize="11">O</text>
                 </svg>
               </div>
               <ul className="mf-prop-list">
@@ -456,8 +474,8 @@ export default function MathFormulas({ onBack }) {
               </thead>
               <tbody>
                 <tr><td><strong style={{color:'var(--mf-gold)'}}>বর্গক্ষেত্র</strong></td><td className="hl">a²</td><td className="hl">4a</td><td className="hl">√2·a</td><td>৪ বাহু সমান, ৪ কোণ = 90°</td></tr>
-                <tr><td><strong style={{color:'var(--mf-blue)'}}>আয়তক্ষেত্র</strong></td><td className="hl">a × b</td><td className="hl">2(a+b)</td><td className="hl">√(a²+b²)</td><td>বিপরীত বাহু সমান, ৪ কোণ = 90°</td></tr>
                 <tr><td><strong style={{color:'var(--mf-teal)'}}>রম্বস</strong></td><td className="hl">½ × d₁ × d₂</td><td className="hl">4a</td><td className="hl">d₁, d₂</td><td>৪ বাহু সমান, কর্ণ লম্বদ্বিখণ্ডক</td></tr>
+                <tr><td><strong style={{color:'var(--mf-blue)'}}>আয়তক্ষেত্র</strong></td><td className="hl">a × b</td><td className="hl">2(a+b)</td><td className="hl">√(a²+b²)</td><td>বিপরীত বাহু সমান, ৪ কোণ = 90°</td></tr>
                 <tr><td><strong style={{color:'var(--mf-violet)'}}>সামান্তরিক</strong></td><td className="hl">ভূমি × উচ্চতা</td><td className="hl">2(a+b)</td><td>−</td><td>বিপরীত বাহু সমান ও সমান্তরাল</td></tr>
                 <tr><td><strong style={{color:'var(--mf-rose)'}}>ট্রাপিজিয়াম</strong></td><td className="hl">½(a+b)×h</td><td>a+b+c+d</td><td>−</td><td>এক জোড়া সমান্তরাল বাহু</td></tr>
               </tbody>
@@ -593,25 +611,27 @@ export default function MathFormulas({ onBack }) {
                   <circle cx="80" cy="75" r="62" fill="rgba(91,164,245,.06)" stroke="#5ba4f5" strokeWidth="2"/>
                   <line x1="80" y1="75" x2="142" y2="75" stroke="#f0a500" strokeWidth="1.5"/>
                   <text x="105" y="70" fill="#f0a500" fontSize="13" fontWeight="700">r</text>
-                  <line x1="80" y1="75" x2="80" y2="13" stroke="#0fdba8" strokeWidth="1.5" strokeDasharray="3,2"/>
-                  <line x1="80" y1="75" x2="130" y2="37" stroke="#0fdba8" strokeWidth="1.5" strokeDasharray="3,2"/>
-                  <path d="M 80 55 A 20 20 0 0 1 92 62" fill="none" stroke="#0fdba8" strokeWidth="1.5"/>
-                  <text x="86" y="57" fill="#0fdba8" fontSize="11">2θ</text>
-                  <line x1="35" y1="130" x2="80" y2="13" stroke="#a78bfa" strokeWidth="1.2" strokeDasharray="2,2" opacity=".6"/>
-                  <line x1="35" y1="130" x2="130" y2="37" stroke="#a78bfa" strokeWidth="1.2" strokeDasharray="2,2" opacity=".6"/>
-                  <text x="28" y="125" fill="#a78bfa" fontSize="11">θ</text>
                   <circle cx="80" cy="75" r="4" fill="#f0a500"/>
+                  <line x1="80" y1="75" x2="80" y2="13" stroke="#0fdba8" strokeWidth="1.5" strokeDasharray="3,2"/>
+                  <line x1="80" y1="75" x2="129" y2="37" stroke="#0fdba8" strokeWidth="1.5" strokeDasharray="3,2"/>
+                  <path d="M 80 57 A 18 18 0 0 1 94 64" fill="none" stroke="#0fdba8" strokeWidth="1.5"/>
+                  <text x="86" y="57" fill="#0fdba8" fontSize="11">2θ</text>
+                  <line x1="40" y1="122" x2="80" y2="13" stroke="#a78bfa" strokeWidth="1.2" strokeDasharray="2,2" opacity=".7"/>
+                  <line x1="40" y1="122" x2="129" y2="37" stroke="#a78bfa" strokeWidth="1.2" strokeDasharray="2,2" opacity=".7"/>
+                  <path d="M 45 109 A 14 14 0 0 0 50 112" fill="none" stroke="#a78bfa" strokeWidth="1.3"/>
+                  <text x="26" y="118" fill="#a78bfa" fontSize="11">θ</text>
                 </svg>
               </div>
               <FBox label="ক্ষেত্রফল" val="= π r²"/>
               <FBox label="পরিধি" val="= 2π r"/>
-              <FBox label="কেন্দ্রীয় কোণ" val="= 2 × বৃত্তস্থ কোণ" highlight/>
+              <FBox label="চাপের দৈর্ঘ্য (Arc)" val="= r θ" highlight/>
+              <FBox label="কেন্দ্রীয় কোণ" val="= 2 × বৃত্তস্থ কোণ"/>
               <ul className="mf-prop-list" style={{marginTop:8}}>
                 <li>একই চাপের উপর দাঁড়ানো সকল বৃত্তস্থ কোণ সমান</li>
                 <li>অর্ধবৃত্তস্থ কোণ = এক সমকোণ (90°)</li>
                 <li>১ মাইল = ১.৬ কিলোমিটার</li>
               </ul>
-              <Mem title="💡 কেন্দ্রীয় ও বৃত্তস্থ কোণ"><p>কেন্দ্রীয় কোণ = বৃত্তস্থ কোণের <strong>দ্বিগুণ</strong>।</p></Mem>
+              <Mem title="💡 কেন্দ্রীয় ও বৃত্তস্থ কোণ"><p>কেন্দ্রীয় কোণ = বৃত্তস্থ কোণের <strong>দ্বিগুণ</strong>। চাপের সূত্রে θ অবশ্যই <strong>radian</strong>-এ।</p></Mem>
             </Card>
 
             <Card color="gold">
@@ -619,10 +639,10 @@ export default function MathFormulas({ onBack }) {
               <div style={{textAlign:'center',margin:'10px 0'}}>
                 <svg width="160" height="150" viewBox="0 0 160 150">
                   <polygon points="80,10 148,62 122,138 38,138 12,62" fill="rgba(240,165,0,.07)" stroke="#f0a500" strokeWidth="2"/>
-                  <path d="M 108 97 A 22 22 0 0 0 134 75" fill="none" stroke="#ffd166" strokeWidth="1.5"/>
-                  <text x="112" y="84" fill="#ffd166" fontSize="11">θ</text>
-                  <text x="70" y="80" fill="#f0a500" fontSize="12" fontWeight="700">n=5</text>
-                  <text x="10" y="148" fill="#8899aa" fontSize="11">(5−2)×180 = 540°</text>
+                  <path d="M 132 50 A 20 20 0 0 0 142 81" fill="none" stroke="#ffd166" strokeWidth="1.5"/>
+                  <text x="119" y="70" fill="#ffd166" fontSize="11">θ</text>
+                  <text x="62" y="82" fill="#f0a500" fontSize="12" fontWeight="700">n=5</text>
+                  <text x="12" y="148" fill="#8899aa" fontSize="11">(5−2)×180 = 540°</text>
                 </svg>
               </div>
               <FBox label="অভ্যন্তরীণ কোণের সমষ্টি" val="= (n − 2) × 180°"/>
@@ -677,16 +697,20 @@ export default function MathFormulas({ onBack }) {
 
         {/* ══ S7: CYLINDER, CONE, SPHERE ════════════════════════ */}
         <div className="mf-section" id="curved">
-          <SectionHeader icon="⬡" title="বেলন · শঙ্কু · গোলক · অর্ধগোলক" sub="Cylinder · Cone · Sphere · Hemisphere" />
+          <SectionHeader icon="⬡" title="সিলিন্ডার · Cone · গোলক · অর্ধগোলক" sub="Cylinder · Cone · Sphere · Hemisphere" />
+          <div className="mf-legend">
+            <span><strong>CSA</strong> Curved Surface Area (শুধু বাঁকা অংশ)</span>
+            <span><strong>TSA</strong> Total Surface Area (সমগ্র পৃষ্ঠ)</span>
+          </div>
           <Card color="teal" style={{marginBottom:16}}>
             <CardTitle color="var(--mf-teal)">সমস্ত সূত্রের তুলনামূলক তালিকা</CardTitle>
             <div className="mf-table-scroll"><table className="mf-cmp-table">
               <thead>
-                <tr><th>আকৃতি</th><th>আয়তন</th><th>বক্রপৃষ্ঠ</th><th>সমগ্র পৃষ্ঠতল</th><th>বিশেষ</th></tr>
+                <tr><th>আকৃতি</th><th>আয়তন</th><th>বক্রপৃষ্ঠ (CSA)</th><th>সমগ্র পৃষ্ঠতল (TSA)</th><th>বিশেষ</th></tr>
               </thead>
               <tbody>
-                <tr><td><strong style={{color:'var(--mf-blue)'}}>বেলন</strong></td><td className="hl">πr²h</td><td className="hl">2πrh</td><td className="hl">2πr(r+h)</td><td>−</td></tr>
-                <tr><td><strong style={{color:'var(--mf-rose)'}}>শঙ্কু</strong></td><td className="hl">⅓πr²h</td><td className="hl">πrl</td><td className="hl">πr(r+l)</td><td>l = √(h²+r²)</td></tr>
+                <tr><td><strong style={{color:'var(--mf-blue)'}}>সিলিন্ডার</strong></td><td className="hl">πr²h</td><td className="hl">2πrh</td><td className="hl">2πr(r+h)</td><td>−</td></tr>
+                <tr><td><strong style={{color:'var(--mf-rose)'}}>Cone</strong></td><td className="hl">⅓πr²h</td><td className="hl">πrl</td><td className="hl">πr(r+l)</td><td>l = √(h²+r²)</td></tr>
                 <tr><td><strong style={{color:'var(--mf-gold)'}}>গোলক</strong></td><td className="hl">⁴⁄₃πr³</td><td>−</td><td className="hl">4πr²</td><td>−</td></tr>
                 <tr><td><strong style={{color:'var(--mf-violet)'}}>অর্ধগোলক</strong></td><td className="hl">⅔πr³</td><td className="hl">2πr²</td><td className="hl">3πr²</td><td>সমগ্র = বক্র + ভূমি</td></tr>
               </tbody>
@@ -695,7 +719,7 @@ export default function MathFormulas({ onBack }) {
 
           <div className="mf-grid3">
             <Card color="blue">
-              <CardTitle color="var(--mf-blue)">বেলন (Cylinder)</CardTitle>
+              <CardTitle color="var(--mf-blue)">সিলিন্ডার (Cylinder)</CardTitle>
               <div style={{textAlign:'center',margin:'8px 0'}}>
                 <svg width="120" height="130" viewBox="0 0 120 130">
                   <ellipse cx="60" cy="28" rx="45" ry="14" fill="rgba(91,164,245,.1)" stroke="#5ba4f5" strokeWidth="2"/>
@@ -709,12 +733,12 @@ export default function MathFormulas({ onBack }) {
                 </svg>
               </div>
               <FBox label="আয়তন" val="= πr²h"/>
-              <FBox label="বক্রপৃষ্ঠ" val="= 2πrh"/>
-              <FBox label="সমগ্র পৃষ্ঠ" val="= 2πr(r + h)" highlight/>
+              <FBox label="বক্রপৃষ্ঠ (CSA)" val="= 2πrh"/>
+              <FBox label="সমগ্র পৃষ্ঠ (TSA)" val="= 2πr(r + h)" highlight/>
             </Card>
 
             <Card color="rose">
-              <CardTitle>শঙ্কু (Cone)</CardTitle>
+              <CardTitle>Cone</CardTitle>
               <div style={{textAlign:'center',margin:'8px 0'}}>
                 <svg width="120" height="130" viewBox="0 0 120 130">
                   <line x1="60" y1="10" x2="15" y2="110" stroke="#f06d7e" strokeWidth="2"/>
@@ -729,9 +753,9 @@ export default function MathFormulas({ onBack }) {
               </div>
               <FBox label="আয়তন" val="= ⅓ × πr²h"/>
               <FBox label="তির্যক উচ্চতা l" val="= √(h² + r²)"/>
-              <FBox label="বক্রপৃষ্ঠ" val="= πrl"/>
-              <FBox label="সমগ্র পৃষ্ঠ" val="= πr(r + l)" highlight/>
-              <Mem title="💡"><p>শঙ্কু = বেলনের <strong>⅓</strong> আয়তন (একই r, h হলে)</p></Mem>
+              <FBox label="বক্রপৃষ্ঠ (CSA)" val="= πrl"/>
+              <FBox label="সমগ্র পৃষ্ঠ (TSA)" val="= πr(r + l)" highlight/>
+              <Mem title="💡"><p>Cone = সিলিন্ডারের <strong>⅓</strong> আয়তন (একই r, h হলে)</p></Mem>
             </Card>
 
             <Card color="gold">
@@ -783,11 +807,29 @@ export default function MathFormulas({ onBack }) {
             </div>
           </Card>
           <Mem title="💡 আয়তন মনে রাখার ট্রিক" style={{marginTop:12}}>
-            <p><strong style={{color:'var(--mf-gold)'}}>বেলন:</strong> πr²h &nbsp;|&nbsp;
-            <strong style={{color:'var(--mf-rose)'}}>শঙ্কু:</strong> ⅓πr²h &nbsp;|&nbsp;
-            <strong style={{color:'var(--mf-gold2)'}}>গোলক:</strong> ⁴⁄₃πr³ &nbsp;|&nbsp;
-            <strong style={{color:'var(--mf-violet)'}}>অর্ধগোলক:</strong> ⅔πr³</p>
-            <p style={{marginTop:6}}>"বেলন পূর্ণ, শঙ্কু তার তৃতীয়াংশ, গোলকে ৪/৩, অর্ধে ২/৩"</p>
+            <div style={{display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:8, margin:'10px 0'}}>
+              <div style={{background:'linear-gradient(135deg,#f0a500 0%,#ffd166 100%)', borderRadius:10, padding:'10px 8px', textAlign:'center', boxShadow:'0 2px 8px rgba(240,165,0,.35)'}}>
+                <div style={{fontSize:10, fontWeight:600, color:'#7a4800', marginBottom:4, letterSpacing:.5}}>সিলিন্ডার</div>
+                <div style={{fontSize:17, fontWeight:800, color:'#fff', textShadow:'0 1px 3px rgba(0,0,0,.2)'}}>πr²h</div>
+                <div style={{fontSize:10, color:'rgba(255,255,255,.85)', marginTop:4, fontWeight:600}}>× 1 (পূর্ণ)</div>
+              </div>
+              <div style={{background:'linear-gradient(135deg,#f06d7e 0%,#ff9eb5 100%)', borderRadius:10, padding:'10px 8px', textAlign:'center', boxShadow:'0 2px 8px rgba(240,108,126,.35)'}}>
+                <div style={{fontSize:10, fontWeight:600, color:'#7a1a2a', marginBottom:4, letterSpacing:.5}}>Cone</div>
+                <div style={{fontSize:17, fontWeight:800, color:'#fff', textShadow:'0 1px 3px rgba(0,0,0,.2)'}}>⅓πr²h</div>
+                <div style={{fontSize:10, color:'rgba(255,255,255,.85)', marginTop:4, fontWeight:600}}>× ⅓</div>
+              </div>
+              <div style={{background:'linear-gradient(135deg,#0fdba8 0%,#6ef7d8 100%)', borderRadius:10, padding:'10px 8px', textAlign:'center', boxShadow:'0 2px 8px rgba(15,219,168,.35)'}}>
+                <div style={{fontSize:10, fontWeight:600, color:'#005c47', marginBottom:4, letterSpacing:.5}}>গোলক</div>
+                <div style={{fontSize:17, fontWeight:800, color:'#fff', textShadow:'0 1px 3px rgba(0,0,0,.2)'}}>⁴⁄₃πr³</div>
+                <div style={{fontSize:10, color:'rgba(255,255,255,.85)', marginTop:4, fontWeight:600}}>r³ ভিত্তিক</div>
+              </div>
+              <div style={{background:'linear-gradient(135deg,#a78bfa 0%,#c4b5fd 100%)', borderRadius:10, padding:'10px 8px', textAlign:'center', boxShadow:'0 2px 8px rgba(167,139,250,.35)'}}>
+                <div style={{fontSize:10, fontWeight:600, color:'#3b1a8a', marginBottom:4, letterSpacing:.5}}>অর্ধগোলক</div>
+                <div style={{fontSize:17, fontWeight:800, color:'#fff', textShadow:'0 1px 3px rgba(0,0,0,.2)'}}>⅔πr³</div>
+                <div style={{fontSize:10, color:'rgba(255,255,255,.85)', marginTop:4, fontWeight:600}}>গোলকের ½</div>
+              </div>
+            </div>
+            <p style={{fontSize:11, color:'var(--text-3)', marginTop:6, fontStyle:'italic', textAlign:'center'}}>"সিলিন্ডার পূর্ণ → Cone তার ⅓ → গোলকে ৪/৩ → অর্ধে ২/৩"</p>
           </Mem>
         </div>
 
@@ -893,6 +935,10 @@ export default function MathFormulas({ onBack }) {
         {/* ══ S10: PERMUTATION & COMBINATION ════════════════════ */}
         <div className="mf-section" id="pnc">
           <SectionHeader icon="nPr" title="বিন্যাস ও সমাবেশ" sub="Permutation · Combination · Graph Theory" />
+          <div className="mf-legend">
+            <span><strong>nPr</strong> n জিনিস থেকে r নিয়ে সাজানো (Order matters)</span>
+            <span><strong>nCr</strong> n জিনিস থেকে r নিয়ে বাছাই (Order doesn't matter)</span>
+          </div>
           <div className="mf-grid2">
             <Card color="violet">
               <CardTitle color="var(--mf-violet)">বিন্যাস — Permutation (সাজানো)</CardTitle>
@@ -1058,6 +1104,7 @@ function Warn({ title, children, style }) {
     </div>
   )
 }
+
 
 function IdItem({ n, star, children }) {
   return (
