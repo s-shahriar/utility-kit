@@ -215,11 +215,6 @@
 }
 .mf-f-box .val { color: var(--mf-gold2); font-weight: 600; word-break: break-word; }
 .mf-f-box.highlight .val { color: var(--mf-teal); }
-/* KaTeX rendering */
-.mf-tex .katex { font-size: 1.15em; }
-.mf-f-box .val .katex { color: inherit; }
-.mf-series-card .formula .katex { font-size: 1.1em; }
-.mf-id-text .katex { font-size: 1em; }
 
 /* ── Inline formula ──────────────────────────── */
 .mf-fi {
