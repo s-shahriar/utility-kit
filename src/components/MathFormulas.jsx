@@ -1,0 +1,1010 @@
+import { useEffect, useRef } from 'react'
+import { ChevronLeft } from 'lucide-react'
+import './MathFormulas.css'
+
+const SECTIONS = [
+  { id: 'lines',    label: 'রেখা ও কোণ' },
+  { id: 'triangle', label: 'ত্রিভুজ' },
+  { id: 'tri-center',label: 'ত্রিভুজ কেন্দ্র' },
+  { id: 'quad',     label: 'চতুর্ভুজ' },
+  { id: 'circle',   label: 'বৃত্ত ও বহুভুজ' },
+  { id: 'solid',    label: 'ঘনবস্তু' },
+  { id: 'curved',   label: 'বেলন/শঙ্কু/গোলক' },
+  { id: 'algebra',  label: 'বীজগণিত' },
+  { id: 'series',   label: 'ধারা' },
+  { id: 'pnc',      label: 'বিন্যাস-সমাবেশ' },
+  { id: 'set',      label: 'সেট ও সম্ভাবনা' },
+  { id: 'lcm',      label: 'ল.সা.গু-গ.সা.গু' },
+]
+
+export default function MathFormulas({ onBack }) {
+  const activeRef = useRef(null)
+
+  useEffect(() => {
+    const sectionEls = SECTIONS.map(s => document.getElementById(s.id)).filter(Boolean)
+    const navBtns    = document.querySelectorAll('.mf-nav-btn')
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return
+        navBtns.forEach(b => b.classList.remove('active'))
+        const btn = document.querySelector(`.mf-nav-btn[data-id="${e.target.id}"]`)
+        if (btn) {
+          btn.classList.add('active')
+          btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+        }
+      })
+    }, { rootMargin: '-20% 0px -65% 0px' })
+
+    sectionEls.forEach(el => obs.observe(el))
+    return () => obs.disconnect()
+  }, [])
+
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  return (
+    <div className="mf-root">
+      {/* Top bar */}
+      <div className="mf-topbar">
+        <button className="mf-back-btn" onClick={onBack}>
+          <ChevronLeft size={15} /> হোম
+        </button>
+        <span className="mf-topbar-title">গণিত সূত্র সংকলন</span>
+      </div>
+
+      {/* Section nav */}
+      <nav className="mf-nav">
+        <div className="mf-nav-inner">
+          {SECTIONS.map(s => (
+            <button key={s.id} className="mf-nav-btn" data-id={s.id} onClick={() => scrollTo(s.id)}>
+              {s.label}
+            </button>
+          ))}
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <div className="mf-hero">
+        <h1>গণিত সূত্র সংকলন</h1>
+        <p>জ্যামিতি · বীজগণিত · পরিসংখ্যান · সম্ভাবনা — সম্পূর্ণ সূত্র + মনে রাখার কৌশল</p>
+      </div>
+
+      <div className="mf-wrap">
+
+        {/* ══ S1: LINES & ANGLES ══════════════════════════════ */}
+        <div className="mf-section" id="lines">
+          <SectionHeader icon="📐" title="রেখা ও কোণ" sub="Line, Ray, Line Segment · Angles" />
+          <div className="mf-grid2">
+            <Card color="gold">
+              <CardTitle>রেখার প্রকারভেদ</CardTitle>
+              <div className="mf-diagram-row">
+                <div className="mf-diagram-box">
+                  <svg width="100" height="40" viewBox="0 0 100 40">
+                    <defs>
+                      <marker id="arr1" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6" fill="#f0a500"/></marker>
+                      <marker id="arr2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto-start-reverse"><path d="M0,0L6,3L0,6" fill="#f0a500"/></marker>
+                    </defs>
+                    <line x1="8" y1="20" x2="92" y2="20" stroke="#f0a500" strokeWidth="2" markerStart="url(#arr2)" markerEnd="url(#arr1)"/>
+                  </svg>
+                  <div className="dlabel">রেখা</div>
+                  <div className="dval">কোনো প্রান্তবিন্দু নেই</div>
+                </div>
+                <div className="mf-diagram-box">
+                  <svg width="100" height="40" viewBox="0 0 100 40">
+                    <line x1="10" y1="20" x2="90" y2="20" stroke="#0fdba8" strokeWidth="2"/>
+                    <circle cx="10" cy="20" r="4" fill="#0fdba8"/>
+                    <circle cx="90" cy="20" r="4" fill="#0fdba8"/>
+                  </svg>
+                  <div className="dlabel">রেখাংশ</div>
+                  <div className="dval">দুটি প্রান্তবিন্দু আছে</div>
+                </div>
+                <div className="mf-diagram-box">
+                  <svg width="100" height="40" viewBox="0 0 100 40">
+                    <defs><marker id="arr3" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6" fill="#a78bfa"/></marker></defs>
+                    <line x1="10" y1="20" x2="92" y2="20" stroke="#a78bfa" strokeWidth="2" markerEnd="url(#arr3)"/>
+                    <circle cx="10" cy="20" r="4" fill="#a78bfa"/>
+                  </svg>
+                  <div className="dlabel">রশ্মি</div>
+                  <div className="dval">একটি প্রান্তবিন্দু আছে</div>
+                </div>
+              </div>
+            </Card>
+
+            <Card color="teal">
+              <CardTitle color="#0fdba8">কোণের প্রকারভেদ</CardTitle>
+              <div className="mf-angle-grid">
+                <div className="mf-angle-item">
+                  <svg width="60" height="55" viewBox="0 0 60 55">
+                    <line x1="30" y1="50" x2="30" y2="10" stroke="#6e88aa" strokeWidth="1.5"/>
+                    <line x1="30" y1="50" x2="58" y2="50" stroke="#6e88aa" strokeWidth="1.5"/>
+                    <path d="M 42 50 A 12 12 0 0 0 30 38" fill="none" stroke="#0fdba8" strokeWidth="1.8"/>
+                    <text x="44" y="44" fill="#0fdba8" fontSize="9" fontFamily="Arial">θ</text>
+                  </svg>
+                  <div className="aname">সূক্ষ্মকোণ</div>
+                  <div className="aval">θ &lt; 90°</div>
+                </div>
+                <div className="mf-angle-item">
+                  <svg width="60" height="55" viewBox="0 0 60 55">
+                    <line x1="30" y1="50" x2="30" y2="10" stroke="#6e88aa" strokeWidth="1.5"/>
+                    <line x1="30" y1="50" x2="58" y2="50" stroke="#6e88aa" strokeWidth="1.5"/>
+                    <rect x="30" y="38" width="12" height="12" fill="none" stroke="#f0a500" strokeWidth="1.8"/>
+                  </svg>
+                  <div className="aname">সমকোণ</div>
+                  <div className="aval">θ = 90°</div>
+                </div>
+                <div className="mf-angle-item">
+                  <svg width="70" height="55" viewBox="0 0 70 55">
+                    <line x1="10" y1="50" x2="60" y2="50" stroke="#6e88aa" strokeWidth="1.5"/>
+                    <line x1="10" y1="50" x2="50" y2="12" stroke="#6e88aa" strokeWidth="1.5"/>
+                    <path d="M 28 50 A 18 18 0 0 0 22.5 32.5" fill="none" stroke="#f06d7e" strokeWidth="1.8"/>
+                    <text x="28" y="40" fill="#f06d7e" fontSize="9" fontFamily="Arial">θ</text>
+                  </svg>
+                  <div className="aname">স্থূলকোণ</div>
+                  <div className="aval">90°&lt;θ&lt;180°</div>
+                </div>
+                <div className="mf-angle-item">
+                  <svg width="70" height="55" viewBox="0 0 70 55">
+                    <line x1="5" y1="40" x2="65" y2="40" stroke="#6e88aa" strokeWidth="1.5"/>
+                    <line x1="35" y1="40" x2="35" y2="12" stroke="#f0a500" strokeWidth="1.5"/>
+                    <path d="M 45 40 A 10 10 0 0 0 25 40" fill="none" stroke="#5ba4f5" strokeWidth="1.8"/>
+                  </svg>
+                  <div className="aname">সরলকোণ</div>
+                  <div className="aval">θ = 180°</div>
+                </div>
+                <div className="mf-angle-item">
+                  <svg width="70" height="55" viewBox="0 0 70 55">
+                    <line x1="35" y1="35" x2="60" y2="35" stroke="#6e88aa" strokeWidth="1.5"/>
+                    <line x1="35" y1="35" x2="55" y2="15" stroke="#6e88aa" strokeWidth="1.5"/>
+                    <path d="M 47 35 A 12 12 0 1 0 46.6 22" fill="none" stroke="#a78bfa" strokeWidth="1.8"/>
+                  </svg>
+                  <div className="aname">প্রবৃদ্ধ কোণ</div>
+                  <div className="aval">180°&lt;θ&lt;360°</div>
+                </div>
+              </div>
+              <Mem title="💡 মনে রাখার কৌশল — কোণের ক্রম">
+                <p><strong style={{color:'#0fdba8'}}>সূ-স-স্থ-সর-প্র</strong> → ছোট থেকে বড় →<br/>
+                <strong>সূক্ষ্ম</strong> (বাচ্চা) → <strong>সমকোণ</strong> (= 90) → <strong>স্থূল</strong> (বড়) → <strong>সরল</strong> (= 180) → <strong>প্রবৃদ্ধ</strong> (360 পর্যন্ত)</p>
+              </Mem>
+            </Card>
+          </div>
+        </div>
+
+        {/* ══ S2: TRIANGLE ══════════════════════════════════════ */}
+        <div className="mf-section" id="triangle">
+          <SectionHeader icon="△" title="ত্রিভুজ — প্রকার, সর্বসমতা ও ক্ষেত্রফল" sub="Triangles · Congruence · Area Formulas" />
+
+          <Card color="teal" style={{marginBottom:16}}>
+            <CardTitle color="#0fdba8">ত্রিভুজের মূল ধর্মসমূহ</CardTitle>
+            <ul className="mf-prop-list">
+              <li>তিনটি অভ্যন্তরীণ কোণের সমষ্টি = <span className="mf-fi">180°</span></li>
+              <li>বহিঃস্থ কোণ = অপর দুটি অন্তঃস্থ কোণের সমষ্টি</li>
+              <li>যেকোনো দুই বাহুর যোগফল &gt; তৃতীয় বাহু</li>
+              <li>অভ্যন্তরস্থ কোণের সমদ্বিখণ্ডক বিপরীত বাহুকে <span className="mf-fi">2:1</span> অনুপাতে বিভক্ত করে</li>
+              <li>একটি কোণ বাহির হলে অপর দুটি কোণের সমষ্টির সমান হয়</li>
+            </ul>
+          </Card>
+
+          <div className="mf-grid3" style={{marginBottom:16}}>
+            <Card color="gold">
+              <CardTitle badge="Equilateral">সমবাহু ত্রিভুজ</CardTitle>
+              <div style={{textAlign:'center',margin:'10px 0'}}>
+                <svg width="140" height="115" viewBox="0 0 140 115">
+                  <polygon points="70,10 130,110 10,110" fill="rgba(240,165,0,.06)" stroke="#f0a500" strokeWidth="2"/>
+                  <text x="100" y="68" fill="#f0a500" fontSize="13" fontFamily="sans-serif" fontWeight="700">a</text>
+                  <text x="25" y="68" fill="#f0a500" fontSize="13" fontFamily="sans-serif" fontWeight="700">a</text>
+                  <text x="65" y="108" fill="#f0a500" fontSize="13" fontFamily="sans-serif" fontWeight="700">a</text>
+                  <text x="60" y="28" fill="#ffd166" fontSize="10">60°</text>
+                  <text x="15" y="105" fill="#ffd166" fontSize="10">60°</text>
+                  <text x="108" y="105" fill="#ffd166" fontSize="10">60°</text>
+                  <line x1="95" y1="57" x2="91" y2="65" stroke="#ffd166" strokeWidth="2"/>
+                  <line x1="45" y1="57" x2="49" y2="65" stroke="#ffd166" strokeWidth="2"/>
+                  <line x1="68" y1="110" x2="72" y2="110" stroke="#ffd166" strokeWidth="2"/>
+                </svg>
+              </div>
+              <FBox label="পরিসীমা" val="= 3a"/>
+              <FBox label="ক্ষেত্রফল" val="= (√3/4) × a²" highlight/>
+              <Mem title="💡 মনে রাখুন"><p>সব বাহু সমান = শুধু "a" — সূত্রে অন্য কোনো অক্ষর নেই।</p></Mem>
+            </Card>
+
+            <Card color="blue">
+              <CardTitle badge="Isosceles" badgeStyle={{background:'rgba(91,164,245,.15)',color:'#5ba4f5',borderColor:'rgba(91,164,245,.3)'}}>সমদ্বিবাহু ত্রিভুজ</CardTitle>
+              <div style={{textAlign:'center',margin:'10px 0'}}>
+                <svg width="140" height="115" viewBox="0 0 140 115">
+                  <polygon points="70,8 122,110 18,110" fill="rgba(91,164,245,.06)" stroke="#5ba4f5" strokeWidth="2"/>
+                  <text x="100" y="63" fill="#5ba4f5" fontSize="13" fontWeight="700">a</text>
+                  <text x="28" y="63" fill="#5ba4f5" fontSize="13" fontWeight="700">a</text>
+                  <text x="63" y="108" fill="#f0a500" fontSize="13" fontWeight="700">b</text>
+                  <line x1="70" y1="8" x2="70" y2="110" stroke="#ffd166" strokeWidth="1.5" strokeDasharray="4,3"/>
+                  <text x="73" y="60" fill="#ffd166" fontSize="11">h</text>
+                  <rect x="66" y="100" width="8" height="8" fill="none" stroke="#ffd166" strokeWidth="1"/>
+                </svg>
+              </div>
+              <FBox label="ক্ষেত্রফল" val="= (b/4) × √(4a²−b²)" highlight/>
+              <FBox label="উচ্চতা h" val="= √(a² − b²/4)"/>
+              <Mem title="💡 মনে রাখুন"><p><strong>b = ভূমি</strong> (বেজ), <strong>a = সমান দুটি বাহু</strong> — "b" আলাদা কারণ ভূমি আলাদা।</p></Mem>
+            </Card>
+
+            <Card color="rose">
+              <CardTitle badge="Scalene / Heron" badgeStyle={{background:'rgba(240,108,126,.12)',color:'#f06d7e',borderColor:'rgba(240,108,126,.25)'}}>বিষমবাহু ত্রিভুজ</CardTitle>
+              <div style={{textAlign:'center',margin:'10px 0'}}>
+                <svg width="140" height="115" viewBox="0 0 140 115">
+                  <polygon points="30,110 125,110 65,15" fill="rgba(240,108,126,.06)" stroke="#f06d7e" strokeWidth="2"/>
+                  <text x="91" y="68" fill="#f06d7e" fontSize="13" fontWeight="700">b</text>
+                  <text x="37" y="68" fill="#f06d7e" fontSize="13" fontWeight="700">a</text>
+                  <text x="73" y="108" fill="#f06d7e" fontSize="13" fontWeight="700">c</text>
+                </svg>
+              </div>
+              <FBox label="ক্ষেত্রফল" val="= √(s(s−a)(s−b)(s−c))" highlight/>
+              <FBox label="s (অর্ধপরি)" val="= (a+b+c) / 2"/>
+              <Mem title="💡 হেরনের সূত্র"><p>"<strong>s</strong> থেকে তিনটি বাদ দাও, গুণ করো, বর্গমূল নাও"</p></Mem>
+            </Card>
+          </div>
+
+          <div className="mf-grid2">
+            <Card color="violet">
+              <CardTitle color="#a78bfa">দুই বাহু ও অন্তর্ভুক্ত কোণ দিয়ে ক্ষেত্রফল</CardTitle>
+              <div style={{textAlign:'center',margin:'10px 0'}}>
+                <svg width="160" height="110" viewBox="0 0 160 110">
+                  <polygon points="10,100 150,100 50,15" fill="rgba(167,139,250,.06)" stroke="#a78bfa" strokeWidth="2"/>
+                  <text x="75" y="112" fill="#a78bfa" fontSize="13" fontWeight="700">a</text>
+                  <text x="9" y="58" fill="#a78bfa" fontSize="13" fontWeight="700">b</text>
+                  <path d="M 30 100 A 18 18 0 0 1 22 82" fill="none" stroke="#f0a500" strokeWidth="1.8"/>
+                  <text x="30" y="88" fill="#f0a500" fontSize="11">θ</text>
+                </svg>
+              </div>
+              <FBox label="ক্ষেত্রফল" val="= ½ × a × b × sin θ" highlight/>
+              <p style={{fontSize:13,color:'var(--text-3)',marginTop:8}}>যেখানে a ও b দুটি বাহু এবং θ তাদের অন্তর্ভুক্ত কোণ</p>
+            </Card>
+
+            <Card color="gold">
+              <CardTitle>সর্বসমতার শর্ত (Congruence)</CardTitle>
+              <ul className="mf-prop-list">
+                <li><span className="mf-tag g">SAS</span> দুই বাহু ও অন্তর্ভুক্ত কোণ সমান</li>
+                <li><span className="mf-tag g">SSS</span> তিন বাহু সমান</li>
+                <li><span className="mf-tag g">ASA</span> দুই কোণ ও মধ্যবর্তী বাহু সমান</li>
+                <li><span className="mf-tag g">AAS</span> দুই কোণ ও যেকোনো বাহু সমান</li>
+                <li><span className="mf-tag g">RHS</span> সমকোণী: অতিভুজ ও একটি বাহু সমান</li>
+              </ul>
+              <Warn title="⚠️ মিলিয়ে ফেলবেন না">
+                <p>সর্বসম (Congruent) ≠ সদৃশ (Similar)। সর্বসম = একই আকার ও মাপ। সদৃশ = শুধু একই আকার।</p>
+              </Warn>
+            </Card>
+          </div>
+
+          <Card color="gold" style={{marginTop:16}}>
+            <CardTitle>পিথাগোরাস সংক্রান্ত গুরুত্বপূর্ণ তথ্য</CardTitle>
+            <div className="mf-grid2">
+              <div>
+                <FBox label="সমকোণী হলে" val="AB² + BC² = AC² (অতিভুজ²)"/>
+                <FBox label="সূক্ষ্মকোণী হলে" val="বৃহত্তম বাহুর² < অন্য দুই বাহুর² যোগফল"/>
+                <FBox label="স্থূলকোণী হলে" val="বৃহত্তম বাহুর² > অন্য দুই বাহুর² যোগফল"/>
+              </div>
+              <div style={{textAlign:'center',padding:10}}>
+                <svg width="160" height="130" viewBox="0 0 160 130">
+                  <polygon points="10,120 130,120 10,20" fill="rgba(240,165,0,.05)" stroke="#f0a500" strokeWidth="2"/>
+                  <rect x="10" y="110" width="12" height="12" fill="none" stroke="#ffd166" strokeWidth="1.5"/>
+                  <text x="58" y="116" fill="#0fdba8" fontSize="12">a (ভূমি)</text>
+                  <text x="4" y="75" fill="#0fdba8" fontSize="12" transform="rotate(-90,15,75)">b (লম্ব)</text>
+                  <text x="62" y="70" fill="#f0a500" fontSize="12" fontWeight="700" transform="rotate(-39,72,65)">c = √(a²+b²)</text>
+                  <text x="2" y="128" fill="#ffd166" fontSize="11">90°</text>
+                </svg>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* ══ S3: TRIANGLE CENTERS ══════════════════════════════ */}
+        <div className="mf-section" id="tri-center">
+          <SectionHeader icon="⊙" title="ত্রিভুজের কেন্দ্র" sub="Incentre · Circumcentre · Centroid" />
+          <div className="mf-grid3">
+            <Card color="violet">
+              <CardTitle color="#a78bfa" badge="Incentre" badgeStyle={{background:'rgba(167,139,250,.12)',color:'#a78bfa',borderColor:'rgba(167,139,250,.3)'}}>অন্তঃকেন্দ্র</CardTitle>
+              <div style={{textAlign:'center',margin:'10px 0'}}>
+                <svg width="140" height="120" viewBox="0 0 140 120">
+                  <polygon points="70,8 128,112 12,112" fill="rgba(167,139,250,.06)" stroke="#a78bfa" strokeWidth="1.5"/>
+                  <line x1="70" y1="8" x2="70" y2="112" stroke="#a78bfa" strokeWidth="1.2" strokeDasharray="3,2"/>
+                  <line x1="12" y1="112" x2="99" y2="60" stroke="#a78bfa" strokeWidth="1.2" strokeDasharray="3,2"/>
+                  <line x1="128" y1="112" x2="41" y2="60" stroke="#a78bfa" strokeWidth="1.2" strokeDasharray="3,2"/>
+                  <circle cx="70" cy="81" r="18" fill="none" stroke="#f0a500" strokeWidth="1.5" strokeDasharray="2,2"/>
+                  <circle cx="70" cy="81" r="4" fill="#f0a500"/>
+                  <text x="74" y="79" fill="#f0a500" fontSize="11">I</text>
+                </svg>
+              </div>
+              <ul className="mf-prop-list">
+                <li>কোণের <strong>সমদ্বিখণ্ডকের</strong> ছেদবিন্দু</li>
+                <li>অন্তর্বৃত্তের কেন্দ্র</li>
+                <li>সর্বদা ত্রিভুজের <strong>ভেতরে</strong> থাকে</li>
+              </ul>
+              <Mem title="💡 মনে রাখুন"><p><strong>অন্তঃ</strong>কেন্দ্র → <strong>কোণের</strong> সমদ্বিখণ্ডক</p></Mem>
+            </Card>
+
+            <Card color="teal">
+              <CardTitle color="#0fdba8" badge="Circumcentre">পরিকেন্দ্র</CardTitle>
+              <div style={{textAlign:'center',margin:'10px 0'}}>
+                <svg width="140" height="120" viewBox="0 0 140 120">
+                  <polygon points="70,8 128,112 12,112" fill="rgba(15,219,168,.05)" stroke="#0fdba8" strokeWidth="1.5"/>
+                  <line x1="70" y1="60" x2="70" y2="112" stroke="#0fdba8" strokeWidth="1.2" strokeDasharray="3,2"/>
+                  <line x1="12" y1="112" x2="128" y2="60" stroke="#0fdba8" strokeWidth="1.2" strokeDasharray="3,2"/>
+                  <line x1="70" y1="8" x2="70" y2="112" stroke="#0fdba8" strokeWidth="1.2" strokeDasharray="3,2"/>
+                  <circle cx="70" cy="65" r="57" fill="none" stroke="#f0a500" strokeWidth="1.3" strokeDasharray="2,3"/>
+                  <circle cx="70" cy="65" r="4" fill="#f0a500"/>
+                  <text x="74" y="63" fill="#f0a500" fontSize="11">O</text>
+                </svg>
+              </div>
+              <ul className="mf-prop-list">
+                <li>বাহুর <strong>লম্বদ্বিখণ্ডকের</strong> ছেদবিন্দু</li>
+                <li>পরিবৃত্তের কেন্দ্র</li>
+                <li>সূক্ষ্মকোণীতে ভেতরে, স্থূলকোণীতে বাইরে</li>
+              </ul>
+              <Mem title="💡 মনে রাখুন"><p><strong>পরি</strong>কেন্দ্র → <strong>বাহুর</strong> লম্বদ্বিখণ্ডক</p></Mem>
+            </Card>
+
+            <Card color="rose">
+              <CardTitle badge="Centroid" badgeStyle={{background:'rgba(240,108,126,.12)',color:'#f06d7e',borderColor:'rgba(240,108,126,.25)'}}>ভরকেন্দ্র</CardTitle>
+              <div style={{textAlign:'center',margin:'10px 0'}}>
+                <svg width="140" height="120" viewBox="0 0 140 120">
+                  <polygon points="70,8 128,112 12,112" fill="rgba(240,108,126,.05)" stroke="#f06d7e" strokeWidth="1.5"/>
+                  <line x1="70" y1="8" x2="70" y2="112" stroke="#f06d7e" strokeWidth="1.5" strokeDasharray="3,2"/>
+                  <line x1="12" y1="112" x2="99" y2="60" stroke="#f06d7e" strokeWidth="1.5" strokeDasharray="3,2"/>
+                  <line x1="128" y1="112" x2="41" y2="60" stroke="#f06d7e" strokeWidth="1.5" strokeDasharray="3,2"/>
+                  <circle cx="70" cy="77" r="5" fill="#f06d7e"/>
+                  <text x="75" y="75" fill="#f0a500" fontSize="11">G</text>
+                  <circle cx="70" cy="112" r="3" fill="#ffd166"/>
+                  <circle cx="99" cy="60" r="3" fill="#ffd166"/>
+                  <circle cx="41" cy="60" r="3" fill="#ffd166"/>
+                </svg>
+              </div>
+              <ul className="mf-prop-list">
+                <li><strong>মধ্যমার</strong> ছেদবিন্দু</li>
+                <li>মধ্যমাকে <span className="mf-fi">2:1</span> অনুপাতে ভাগ করে</li>
+                <li>সর্বদা ত্রিভুজের <strong>ভেতরে</strong> থাকে</li>
+              </ul>
+              <Mem title="💡 মনে রাখুন">
+                <p><strong>ভর</strong>কেন্দ্র → <strong>মধ্যমা</strong> (2:1)</p>
+                <p style={{marginTop:4}}>শীর্ষ থেকে ভরকেন্দ্র = মধ্যমার ⅔, ভূমি মধ্যবিন্দু থেকে = ⅓।</p>
+              </Mem>
+            </Card>
+          </div>
+          <Mem title="💡 তিন কেন্দ্র একসাথে মনে রাখুন" style={{marginTop:8}}>
+            <p>
+              <strong style={{color:'#a78bfa'}}>অন্তঃ (I)</strong> = কোণ দ্বিখণ্ডক → সবসময় ভেতরে &nbsp;|&nbsp;
+              <strong style={{color:'#0fdba8'}}>পরি (O)</strong> = বাহু লম্বদ্বিখণ্ডক → ধরন অনুসারে &nbsp;|&nbsp;
+              <strong style={{color:'#f06d7e'}}>ভর (G)</strong> = মধ্যমা → সবসময় ভেতরে, 2:1
+            </p>
+            <p style={{marginTop:4}}>স্মৃতিসূত্র: <strong>"কোণ-বাহু-মধ্যমা"</strong> → <strong>"অন্তঃ-পরি-ভর"</strong></p>
+          </Mem>
+        </div>
+
+        {/* ══ S4: QUADRILATERALS ════════════════════════════════ */}
+        <div className="mf-section" id="quad">
+          <SectionHeader icon="▭" title="চতুর্ভুজ সমূহ" sub="Square · Rectangle · Rhombus · Parallelogram · Trapezium" />
+          <Card color="gold" style={{marginBottom:16,overflowX:'auto'}}>
+            <CardTitle>সকল চতুর্ভুজের তুলনামূলক সূত্র</CardTitle>
+            <table className="mf-cmp-table">
+              <thead>
+                <tr><th>আকৃতি</th><th>ক্ষেত্রফল</th><th>পরিসীমা</th><th>কর্ণ</th><th>বিশেষ ধর্ম</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong style={{color:'#f0a500'}}>বর্গক্ষেত্র</strong></td><td className="hl">a²</td><td className="hl">4a</td><td className="hl">√2·a</td><td>৪ বাহু সমান, ৪ কোণ = 90°</td></tr>
+                <tr><td><strong style={{color:'#5ba4f5'}}>আয়তক্ষেত্র</strong></td><td className="hl">a × b</td><td className="hl">2(a+b)</td><td className="hl">√(a²+b²)</td><td>বিপরীত বাহু সমান, ৪ কোণ = 90°</td></tr>
+                <tr><td><strong style={{color:'#0fdba8'}}>রম্বস</strong></td><td className="hl">½ × d₁ × d₂</td><td className="hl">4a</td><td className="hl">d₁, d₂</td><td>৪ বাহু সমান, কর্ণ লম্বদ্বিখণ্ডক</td></tr>
+                <tr><td><strong style={{color:'#a78bfa'}}>সামান্তরিক</strong></td><td className="hl">ভূমি × উচ্চতা</td><td className="hl">2(a+b)</td><td>−</td><td>বিপরীত বাহু সমান ও সমান্তরাল</td></tr>
+                <tr><td><strong style={{color:'#f06d7e'}}>ট্রাপিজিয়াম</strong></td><td className="hl">½(a+b)×h</td><td>a+b+c+d</td><td>−</td><td>এক জোড়া সমান্তরাল বাহু</td></tr>
+              </tbody>
+            </table>
+          </Card>
+
+          <div className="mf-grid3">
+            <Card color="gold">
+              <CardTitle>বর্গক্ষেত্র (Square)</CardTitle>
+              <div style={{textAlign:'center',margin:'8px 0'}}>
+                <svg width="120" height="110" viewBox="0 0 120 110">
+                  <rect x="15" y="8" width="90" height="90" fill="rgba(240,165,0,.07)" stroke="#f0a500" strokeWidth="2"/>
+                  <rect x="15" y="8" width="10" height="10" fill="none" stroke="#ffd166" strokeWidth="1.2"/>
+                  <rect x="95" y="8" width="10" height="10" fill="none" stroke="#ffd166" strokeWidth="1.2"/>
+                  <rect x="15" y="88" width="10" height="10" fill="none" stroke="#ffd166" strokeWidth="1.2"/>
+                  <rect x="95" y="88" width="10" height="10" fill="none" stroke="#ffd166" strokeWidth="1.2"/>
+                  <line x1="15" y1="8" x2="105" y2="98" stroke="#f0a500" strokeWidth="1.2" strokeDasharray="4,3" opacity=".5"/>
+                  <text x="54" y="108" fill="#f0a500" fontSize="13" fontWeight="700">a</text>
+                  <text x="2" y="58" fill="#f0a500" fontSize="13" fontWeight="700">a</text>
+                  <text x="55" y="56" fill="#ffd166" fontSize="11">√2·a</text>
+                </svg>
+              </div>
+              <FBox label="ক্ষেত্রফল" val="= a²"/>
+              <FBox label="পরিসীমা" val="= 4a"/>
+              <FBox label="কর্ণ" val="= √2 × a" highlight/>
+              <p style={{fontSize:12,color:'var(--text-3)',marginTop:6}}>১ হেক্টর = ১০,০০০ বর্গমিটার</p>
+            </Card>
+
+            <Card color="blue">
+              <CardTitle color="#5ba4f5">আয়তক্ষেত্র (Rectangle)</CardTitle>
+              <div style={{textAlign:'center',margin:'8px 0'}}>
+                <svg width="140" height="100" viewBox="0 0 140 100">
+                  <rect x="10" y="12" width="120" height="72" fill="rgba(91,164,245,.07)" stroke="#5ba4f5" strokeWidth="2"/>
+                  <rect x="10" y="12" width="10" height="10" fill="none" stroke="#ffd166" strokeWidth="1.2"/>
+                  <rect x="120" y="12" width="10" height="10" fill="none" stroke="#ffd166" strokeWidth="1.2"/>
+                  <rect x="10" y="74" width="10" height="10" fill="none" stroke="#ffd166" strokeWidth="1.2"/>
+                  <rect x="120" y="74" width="10" height="10" fill="none" stroke="#ffd166" strokeWidth="1.2"/>
+                  <line x1="10" y1="12" x2="130" y2="84" stroke="#5ba4f5" strokeWidth="1" strokeDasharray="4,3" opacity=".5"/>
+                  <text x="56" y="95" fill="#5ba4f5" fontSize="13" fontWeight="700">a (দৈর্ঘ্য)</text>
+                  <text x="131" y="55" fill="#5ba4f5" fontSize="12" fontWeight="700">b</text>
+                  <text x="55" y="52" fill="#ffd166" fontSize="11">√(a²+b²)</text>
+                </svg>
+              </div>
+              <FBox label="ক্ষেত্রফল" val="= a × b"/>
+              <FBox label="পরিসীমা" val="= 2(a + b)"/>
+              <FBox label="কর্ণ" val="= √(a² + b²)" highlight/>
+              <Mem title="💡"><p>কর্ণদ্বয় সমান এবং পরস্পরকে <strong>সমদ্বিখণ্ডিত</strong> করে।</p></Mem>
+            </Card>
+
+            <Card color="teal">
+              <CardTitle color="#0fdba8">রম্বস (Rhombus)</CardTitle>
+              <div style={{textAlign:'center',margin:'8px 0'}}>
+                <svg width="130" height="110" viewBox="0 0 130 110">
+                  <polygon points="65,5 120,55 65,105 10,55" fill="rgba(15,219,168,.06)" stroke="#0fdba8" strokeWidth="2"/>
+                  <line x1="65" y1="5" x2="65" y2="105" stroke="#f0a500" strokeWidth="1.5" strokeDasharray="4,2"/>
+                  <line x1="10" y1="55" x2="120" y2="55" stroke="#f0a500" strokeWidth="1.5" strokeDasharray="4,2"/>
+                  <rect x="60" y="50" width="10" height="10" fill="none" stroke="#ffd166" strokeWidth="1.2"/>
+                  <text x="65" y="45" fill="#f0a500" fontSize="11">d₁</text>
+                  <text x="115" y="52" fill="#f0a500" fontSize="11">d₂</text>
+                  <text x="66" y="25" fill="#0fdba8" fontSize="12">a</text>
+                  <text x="66" y="88" fill="#0fdba8" fontSize="12">a</text>
+                </svg>
+              </div>
+              <FBox label="ক্ষেত্রফল" val="= ½ × d₁ × d₂" highlight/>
+              <FBox label="পরিসীমা" val="= 4a"/>
+              <ul className="mf-prop-list" style={{marginTop:8}}>
+                <li>কর্ণদ্বয় পরস্পরকে <strong>সমকোণে সমদ্বিখণ্ডিত</strong> করে</li>
+                <li>চার বাহু সমান, কিন্তু কোণ ≠ 90°</li>
+              </ul>
+              <Warn title="⚠️ মিলিয়ে ফেলবেন না"><p>রম্বস ≠ বর্গ। রম্বুসে কোণ ৯০° নয়।</p></Warn>
+            </Card>
+
+            <Card color="violet">
+              <CardTitle color="#a78bfa">সামান্তরিক (Parallelogram)</CardTitle>
+              <div style={{textAlign:'center',margin:'8px 0'}}>
+                <svg width="150" height="100" viewBox="0 0 150 100">
+                  <polygon points="25,88 140,88 125,12 10,12" fill="rgba(167,139,250,.06)" stroke="#a78bfa" strokeWidth="2"/>
+                  <line x1="82.5" y1="12" x2="82.5" y2="88" stroke="#f0a500" strokeWidth="1.5" strokeDasharray="4,2"/>
+                  <rect x="77.5" y="78" width="10" height="10" fill="none" stroke="#ffd166" strokeWidth="1.2"/>
+                  <text x="70" y="97" fill="#a78bfa" fontSize="12">a (ভূমি)</text>
+                  <text x="127" y="55" fill="#a78bfa" fontSize="12">b</text>
+                  <text x="86" y="52" fill="#f0a500" fontSize="11">h</text>
+                </svg>
+              </div>
+              <FBox label="ক্ষেত্রফল" val="= ভূমি × উচ্চতা (a × h)" highlight/>
+              <FBox label="পরিসীমা" val="= 2(a + b)"/>
+              <ul className="mf-prop-list" style={{marginTop:8}}>
+                <li>বিপরীত বাহু সমান ও সমান্তরাল</li>
+                <li>কর্ণদ্বয় পরস্পরকে সমদ্বিখণ্ডিত করে</li>
+              </ul>
+            </Card>
+
+            <Card color="rose">
+              <CardTitle>ট্রাপিজিয়াম (Trapezium)</CardTitle>
+              <div style={{textAlign:'center',margin:'8px 0'}}>
+                <svg width="150" height="100" viewBox="0 0 150 100">
+                  <polygon points="30,88 120,88 100,15 50,15" fill="rgba(240,108,126,.06)" stroke="#f06d7e" strokeWidth="2"/>
+                  <line x1="75" y1="15" x2="75" y2="88" stroke="#f0a500" strokeWidth="1.5" strokeDasharray="4,2"/>
+                  <rect x="70" y="78" width="10" height="10" fill="none" stroke="#ffd166" strokeWidth="1.2"/>
+                  <text x="52" y="11" fill="#f06d7e" fontSize="12">a (ছোট সমান্তরাল)</text>
+                  <text x="52" y="98" fill="#f06d7e" fontSize="12">b (বড় সমান্তরাল)</text>
+                  <text x="78" y="56" fill="#f0a500" fontSize="12">h</text>
+                </svg>
+              </div>
+              <FBox label="ক্ষেত্রফল" val="= ½ × (a + b) × h" highlight/>
+              <ul className="mf-prop-list" style={{marginTop:8}}>
+                <li>এক জোড়া বাহু সমান্তরাল (a ও b)</li>
+                <li>দুই সমান্তরাল বাহু সমান হলে সামান্তরিক</li>
+                <li>সমদ্বিবাহু ট্রাপিজিয়াম: অসমান্তরাল বাহু দুটি সমান</li>
+              </ul>
+            </Card>
+          </div>
+
+          <Mem title="💡 সব ক্ষেত্রফল মনে রাখার সহজ ট্রিক" style={{marginTop:8}}>
+            <ul>
+              <li><strong>বর্গ:</strong> এক বাহু একবার নিজেকে গুণ → a²</li>
+              <li><strong>আয়ত:</strong> দৈর্ঘ্য × প্রস্থ → ab</li>
+              <li><strong>রম্বস:</strong> দুই কর্ণের গুণফলের অর্ধেক → ½d₁d₂</li>
+              <li><strong>সামান্তরিক:</strong> ভূমি × উচ্চতা (আয়তের মতো)</li>
+              <li><strong>ট্রাপিজিয়াম:</strong> দুই সমান্তরাল বাহুর গড় × উচ্চতা → ½(a+b)h</li>
+            </ul>
+          </Mem>
+        </div>
+
+        {/* ══ S5: CIRCLE & POLYGON ══════════════════════════════ */}
+        <div className="mf-section" id="circle">
+          <SectionHeader icon="○" title="বৃত্ত ও বহুভুজ" sub="Circle · Polygon" />
+          <div className="mf-grid2">
+            <Card color="blue">
+              <CardTitle color="#5ba4f5">বৃত্ত (Circle)</CardTitle>
+              <div style={{textAlign:'center',margin:'10px 0'}}>
+                <svg width="160" height="150" viewBox="0 0 160 150">
+                  <circle cx="80" cy="75" r="62" fill="rgba(91,164,245,.06)" stroke="#5ba4f5" strokeWidth="2"/>
+                  <line x1="80" y1="75" x2="142" y2="75" stroke="#f0a500" strokeWidth="1.5"/>
+                  <text x="105" y="70" fill="#f0a500" fontSize="13" fontWeight="700">r</text>
+                  <line x1="80" y1="75" x2="80" y2="13" stroke="#0fdba8" strokeWidth="1.5" strokeDasharray="3,2"/>
+                  <line x1="80" y1="75" x2="130" y2="37" stroke="#0fdba8" strokeWidth="1.5" strokeDasharray="3,2"/>
+                  <path d="M 80 55 A 20 20 0 0 1 92 62" fill="none" stroke="#0fdba8" strokeWidth="1.5"/>
+                  <text x="86" y="57" fill="#0fdba8" fontSize="11">2θ</text>
+                  <line x1="35" y1="130" x2="80" y2="13" stroke="#a78bfa" strokeWidth="1.2" strokeDasharray="2,2" opacity=".6"/>
+                  <line x1="35" y1="130" x2="130" y2="37" stroke="#a78bfa" strokeWidth="1.2" strokeDasharray="2,2" opacity=".6"/>
+                  <text x="28" y="125" fill="#a78bfa" fontSize="11">θ</text>
+                  <circle cx="80" cy="75" r="4" fill="#f0a500"/>
+                </svg>
+              </div>
+              <FBox label="ক্ষেত্রফল" val="= π r²"/>
+              <FBox label="পরিধি" val="= 2π r"/>
+              <FBox label="কেন্দ্রীয় কোণ" val="= 2 × বৃত্তস্থ কোণ" highlight/>
+              <ul className="mf-prop-list" style={{marginTop:8}}>
+                <li>একই চাপের উপর দাঁড়ানো সকল বৃত্তস্থ কোণ সমান</li>
+                <li>অর্ধবৃত্তস্থ কোণ = এক সমকোণ (90°)</li>
+                <li>১ মাইল = ১.৬ কিলোমিটার</li>
+              </ul>
+              <Mem title="💡 কেন্দ্রীয় ও বৃত্তস্থ কোণ"><p>কেন্দ্রীয় কোণ = বৃত্তস্থ কোণের <strong>দ্বিগুণ</strong>।</p></Mem>
+            </Card>
+
+            <Card color="gold">
+              <CardTitle>বহুভুজ (Polygon)</CardTitle>
+              <div style={{textAlign:'center',margin:'10px 0'}}>
+                <svg width="160" height="150" viewBox="0 0 160 150">
+                  <polygon points="80,10 148,62 122,138 38,138 12,62" fill="rgba(240,165,0,.07)" stroke="#f0a500" strokeWidth="2"/>
+                  <path d="M 108 97 A 22 22 0 0 0 134 75" fill="none" stroke="#ffd166" strokeWidth="1.5"/>
+                  <text x="112" y="84" fill="#ffd166" fontSize="11">θ</text>
+                  <text x="70" y="80" fill="#f0a500" fontSize="12" fontWeight="700">n=5</text>
+                  <text x="10" y="148" fill="#8899aa" fontSize="11">(5−2)×180 = 540°</text>
+                </svg>
+              </div>
+              <FBox label="অভ্যন্তরীণ কোণের সমষ্টি" val="= (n − 2) × 180°"/>
+              <FBox label="প্রতিটি বহিঃকোণ" val="= 360° / n" highlight/>
+              <FBox label="n বাহুর কর্ণ সংখ্যা" val="= n(n−3)/2"/>
+              <Mem title="💡 দ্রুত মনে রাখুন">
+                <p>ত্রিভুজ (n=3): 180° ✓ | চতুর্ভুজ (n=4): 360° ✓<br/>
+                পঞ্চভুজ (n=5): 540° | ষড়ভুজ (n=6): 720°</p>
+              </Mem>
+            </Card>
+          </div>
+        </div>
+
+        {/* ══ S6: 3D SOLID ══════════════════════════════════════ */}
+        <div className="mf-section" id="solid">
+          <SectionHeader icon="◧" title="ঘনক ও ঘনবস্তু" sub="Cube · Cuboid · 3D Properties" />
+          <Card color="gold" style={{marginBottom:16}}>
+            <CardTitle>ঘনকের (Cube) মূল তথ্য</CardTitle>
+            <div className="mf-grid3" style={{marginBottom:10}}>
+              <StatBox val="6" label="তল (Face)" color="#f0a500"/>
+              <StatBox val="8" label="কৌণিক বিন্দু (Vertex)" color="#0fdba8"/>
+              <StatBox val="12" label="ধার (Edge)" color="#5ba4f5"/>
+            </div>
+            <p style={{fontSize:13,color:'var(--text-3)',marginBottom:10}}>
+              Euler সূত্র: F + V − E = 2 → 6 + 8 − 12 = 2 ✓ &nbsp;|&nbsp; প্রতিটিতে সমকোণ = <span className="mf-fi">24টি</span>
+            </p>
+          </Card>
+          <Card color="gold" style={{overflowX:'auto'}}>
+            <CardTitle>ঘনক vs ঘনবস্তু সূত্র তুলনা</CardTitle>
+            <table className="mf-cmp-table">
+              <thead>
+                <tr><th>বৈশিষ্ট্য</th><th>ঘনক (Cube) — বাহু a</th><th>ঘনবস্তু (Cuboid) — a, b, c</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>আয়তন</td><td className="hl">a³</td><td className="hl">a × b × c</td></tr>
+                <tr><td>একটি তলের ক্ষেত্রফল</td><td className="hl">a²</td><td className="hl">ab বা bc বা ca</td></tr>
+                <tr><td>সমগ্র পৃষ্ঠতল</td><td className="hl">6a²</td><td className="hl">2(ab + bc + ca)</td></tr>
+                <tr><td>একটি তলের কর্ণ</td><td className="hl">√2 · a</td><td className="hl">√(a²+b²) ইত্যাদি</td></tr>
+                <tr><td>মহাকর্ণ (Space diagonal)</td><td className="hl">√3 · a</td><td className="hl">√(a² + b² + c²)</td></tr>
+              </tbody>
+            </table>
+            <Mem title="💡 মনে রাখুন — ঘনক vs ঘনবস্তু" style={{marginTop:12}}>
+              <ul>
+                <li><strong>ঘনক:</strong> শুধু "a" → a³, 6a², √3·a</li>
+                <li><strong>ঘনবস্তু:</strong> a, b, c → জোড়ায় গুণ (ab+bc+ca)</li>
+                <li><strong>তলের কর্ণ:</strong> দুটি দিক → √(a²+b²)</li>
+                <li><strong>মহাকর্ণ:</strong> তিনটি দিক → √(a²+b²+c²)</li>
+              </ul>
+            </Mem>
+          </Card>
+        </div>
+
+        {/* ══ S7: CYLINDER, CONE, SPHERE ════════════════════════ */}
+        <div className="mf-section" id="curved">
+          <SectionHeader icon="⬡" title="বেলন · শঙ্কু · গোলক · অর্ধগোলক" sub="Cylinder · Cone · Sphere · Hemisphere" />
+          <Card color="teal" style={{marginBottom:16,overflowX:'auto'}}>
+            <CardTitle color="#0fdba8">সমস্ত সূত্রের তুলনামূলক তালিকা</CardTitle>
+            <table className="mf-cmp-table">
+              <thead>
+                <tr><th>আকৃতি</th><th>আয়তন</th><th>বক্রপৃষ্ঠ</th><th>সমগ্র পৃষ্ঠতল</th><th>বিশেষ</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong style={{color:'#5ba4f5'}}>বেলন</strong></td><td className="hl">πr²h</td><td className="hl">2πrh</td><td className="hl">2πr(r+h)</td><td>−</td></tr>
+                <tr><td><strong style={{color:'#f06d7e'}}>শঙ্কু</strong></td><td className="hl">⅓πr²h</td><td className="hl">πrl</td><td className="hl">πr(r+l)</td><td>l = √(h²+r²)</td></tr>
+                <tr><td><strong style={{color:'#f0a500'}}>গোলক</strong></td><td className="hl">⁴⁄₃πr³</td><td>−</td><td className="hl">4πr²</td><td>−</td></tr>
+                <tr><td><strong style={{color:'#a78bfa'}}>অর্ধগোলক</strong></td><td className="hl">⅔πr³</td><td className="hl">2πr²</td><td className="hl">3πr²</td><td>সমগ্র = বক্র + ভূমি</td></tr>
+              </tbody>
+            </table>
+          </Card>
+
+          <div className="mf-grid3">
+            <Card color="blue">
+              <CardTitle color="#5ba4f5">বেলন (Cylinder)</CardTitle>
+              <div style={{textAlign:'center',margin:'8px 0'}}>
+                <svg width="120" height="130" viewBox="0 0 120 130">
+                  <ellipse cx="60" cy="28" rx="45" ry="14" fill="rgba(91,164,245,.1)" stroke="#5ba4f5" strokeWidth="2"/>
+                  <line x1="15" y1="28" x2="15" y2="102" stroke="#5ba4f5" strokeWidth="2"/>
+                  <line x1="105" y1="28" x2="105" y2="102" stroke="#5ba4f5" strokeWidth="2"/>
+                  <ellipse cx="60" cy="102" rx="45" ry="14" fill="rgba(91,164,245,.1)" stroke="#5ba4f5" strokeWidth="2"/>
+                  <line x1="60" y1="28" x2="105" y2="28" stroke="#f0a500" strokeWidth="1.5"/>
+                  <text x="78" y="24" fill="#f0a500" fontSize="12" fontWeight="700">r</text>
+                  <line x1="8" y1="28" x2="8" y2="102" stroke="#ffd166" strokeWidth="1.5"/>
+                  <text x="1" y="68" fill="#ffd166" fontSize="12" fontWeight="700">h</text>
+                </svg>
+              </div>
+              <FBox label="আয়তন" val="= πr²h"/>
+              <FBox label="বক্রপৃষ্ঠ" val="= 2πrh"/>
+              <FBox label="সমগ্র পৃষ্ঠ" val="= 2πr(r + h)" highlight/>
+            </Card>
+
+            <Card color="rose">
+              <CardTitle>শঙ্কু (Cone)</CardTitle>
+              <div style={{textAlign:'center',margin:'8px 0'}}>
+                <svg width="120" height="130" viewBox="0 0 120 130">
+                  <line x1="60" y1="10" x2="15" y2="110" stroke="#f06d7e" strokeWidth="2"/>
+                  <line x1="60" y1="10" x2="105" y2="110" stroke="#f06d7e" strokeWidth="2"/>
+                  <ellipse cx="60" cy="110" rx="45" ry="13" fill="rgba(240,108,126,.08)" stroke="#f06d7e" strokeWidth="2"/>
+                  <line x1="60" y1="10" x2="60" y2="110" stroke="#f0a500" strokeWidth="1.5" strokeDasharray="4,2"/>
+                  <rect x="55" y="100" width="10" height="10" fill="none" stroke="#ffd166" strokeWidth="1.2"/>
+                  <text x="83" y="62" fill="#0fdba8" fontSize="12" fontWeight="700">l</text>
+                  <text x="63" y="60" fill="#f0a500" fontSize="12" fontWeight="700">h</text>
+                  <text x="78" y="108" fill="#f06d7e" fontSize="12" fontWeight="700">r</text>
+                </svg>
+              </div>
+              <FBox label="আয়তন" val="= ⅓ × πr²h"/>
+              <FBox label="তির্যক উচ্চতা l" val="= √(h² + r²)"/>
+              <FBox label="বক্রপৃষ্ঠ" val="= πrl"/>
+              <FBox label="সমগ্র পৃষ্ঠ" val="= πr(r + l)" highlight/>
+              <Mem title="💡"><p>শঙ্কু = বেলনের <strong>⅓</strong> আয়তন (একই r, h হলে)</p></Mem>
+            </Card>
+
+            <Card color="gold">
+              <CardTitle>গোলক ও অর্ধগোলক</CardTitle>
+              <div style={{textAlign:'center',margin:'8px 0'}}>
+                <svg width="140" height="130" viewBox="0 0 140 130">
+                  <circle cx="38" cy="60" r="32" fill="rgba(240,165,0,.07)" stroke="#f0a500" strokeWidth="2"/>
+                  <ellipse cx="38" cy="60" rx="32" ry="10" fill="none" stroke="#f0a500" strokeWidth="1" strokeDasharray="3,2" opacity=".5"/>
+                  <line x1="38" y1="60" x2="70" y2="60" stroke="#ffd166" strokeWidth="1.5"/>
+                  <text x="50" y="57" fill="#ffd166" fontSize="12" fontWeight="700">r</text>
+                  <text x="18" y="105" fill="#f0a500" fontSize="11">গোলক</text>
+                  <path d="M 95 65 A 35 35 0 0 1 130 65" fill="rgba(167,139,250,.07)" stroke="#a78bfa" strokeWidth="2"/>
+                  <line x1="95" y1="65" x2="130" y2="65" stroke="#a78bfa" strokeWidth="2"/>
+                  <ellipse cx="112.5" cy="65" rx="17.5" ry="6" fill="rgba(167,139,250,.1)" stroke="#a78bfa" strokeWidth="1.5"/>
+                  <line x1="112.5" y1="65" x2="130" y2="65" stroke="#ffd166" strokeWidth="1.5"/>
+                  <text x="119" y="60" fill="#ffd166" fontSize="12" fontWeight="700">r</text>
+                  <text x="95" y="85" fill="#a78bfa" fontSize="11">অর্ধগোলক</text>
+                </svg>
+              </div>
+              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,fontSize:13,marginTop:5}}>
+                <div style={{background:'var(--elevated)',borderRadius:8,padding:10,borderLeft:'3px solid #f0a500'}}>
+                  <div style={{color:'#f0a500',fontWeight:700,marginBottom:6}}>গোলক</div>
+                  <div style={{color:'var(--text-2)',marginBottom:3}}>আয়তন = <span className="mf-fi">⁴⁄₃πr³</span></div>
+                  <div style={{color:'var(--text-2)'}}>পৃষ্ঠতল = <span className="mf-fi">4πr²</span></div>
+                </div>
+                <div style={{background:'var(--elevated)',borderRadius:8,padding:10,borderLeft:'3px solid #a78bfa'}}>
+                  <div style={{color:'#a78bfa',fontWeight:700,marginBottom:6}}>অর্ধগোলক</div>
+                  <div style={{color:'var(--text-2)',marginBottom:3}}>আয়তন = <span className="mf-fi">⅔πr³</span></div>
+                  <div style={{color:'var(--text-2)',marginBottom:3}}>বক্রপৃষ্ঠ = <span className="mf-fi">2πr²</span></div>
+                  <div style={{color:'var(--text-2)'}}>সমগ্র = <span className="mf-fi">3πr²</span></div>
+                </div>
+              </div>
+              <Mem title="💡 সহজ সম্পর্ক" style={{marginTop:10}}>
+                <ul>
+                  <li>অর্ধগোলকের আয়তন = গোলকের <strong>অর্ধেক</strong></li>
+                  <li>অর্ধগোলকের বক্রপৃষ্ঠ = গোলকের পৃষ্ঠতলের <strong>অর্ধেক</strong></li>
+                  <li>সমগ্র পৃষ্ঠ = 2πr² + πr² = <strong>3πr²</strong></li>
+                </ul>
+              </Mem>
+            </Card>
+          </div>
+
+          <Card color="gold" style={{marginTop:16}}>
+            <CardTitle>একক রূপান্তর</CardTitle>
+            <div className="mf-grid3">
+              <FBox label="1 m³" val="= 1000 লিটার"/>
+              <FBox label="1 লিটার" val="= 1000 cm³"/>
+              <FBox label="1 হেক্টর" val="= 10,000 m²"/>
+            </div>
+          </Card>
+          <Mem title="💡 আয়তন মনে রাখার ট্রিক" style={{marginTop:12}}>
+            <p><strong style={{color:'#f0a500'}}>বেলন:</strong> πr²h &nbsp;|&nbsp;
+            <strong style={{color:'#f06d7e'}}>শঙ্কু:</strong> ⅓πr²h &nbsp;|&nbsp;
+            <strong style={{color:'#ffd166'}}>গোলক:</strong> ⁴⁄₃πr³ &nbsp;|&nbsp;
+            <strong style={{color:'#a78bfa'}}>অর্ধগোলক:</strong> ⅔πr³</p>
+            <p style={{marginTop:6}}>"বেলন পূর্ণ, শঙ্কু তার তৃতীয়াংশ, গোলকে ৪/৩, অর্ধে ২/৩"</p>
+          </Mem>
+        </div>
+
+        {/* ══ S8: ALGEBRA ════════════════════════════════════════ */}
+        <div className="mf-section" id="algebra">
+          <SectionHeader icon="≡" title="বীজগণিতীয় সূত্রাবলি" sub="Algebraic Identities" />
+          <div className="mf-grid2">
+            <Card color="rose">
+              <CardTitle>বর্গ সংক্রান্ত সূত্র (Square Identities)</CardTitle>
+              <div className="mf-id-list">
+                <IdItem n="1">(a+b)² = a² + 2ab + b²</IdItem>
+                <IdItem n="2">(a−b)² = a² − 2ab + b²</IdItem>
+                <IdItem n="3">(a+b)² = (a−b)² + 4ab</IdItem>
+                <IdItem n="4">(a−b)² = (a+b)² − 4ab</IdItem>
+                <IdItem n="5">a² + b² = (a+b)² − 2ab = (a−b)² + 2ab</IdItem>
+                <IdItem n="6">2(a² + b²) = (a+b)² + (a−b)²</IdItem>
+                <IdItem n="7">a² − b² = (a+b)(a−b)</IdItem>
+                <IdItem n="8">4ab = (a+b)² − (a−b)²</IdItem>
+                <IdItem n="9">4ab = [(a+b)/2]² − [(a−b)/2]²</IdItem>
+              </div>
+              <Mem title="💡 মনে রাখুন — সূত্র ১ ও ২">
+                <ul>
+                  <li>যোগ: (a+b)² → মাঝে <strong>+2ab</strong></li>
+                  <li>বিয়োগ: (a−b)² → মাঝে <strong>−2ab</strong></li>
+                  <li>৭ নম্বর: বর্গের পার্থক্য = গুণনীয়কে পরিণত</li>
+                </ul>
+              </Mem>
+            </Card>
+
+            <Card color="violet">
+              <CardTitle color="#a78bfa">তিন পদ ও ঘন সংক্রান্ত সূত্র</CardTitle>
+              <div className="mf-id-list">
+                <IdItem n="10">(a+b+c)² = a²+b²+c² + 2(ab+bc+ca)</IdItem>
+                <IdItem n="11">(x+a)(x+b) = x² + (a+b)x + ab</IdItem>
+                <IdItem n="12" star>(a+b)³ = a³ + 3a²b + 3ab² + b³</IdItem>
+                <IdItem n="13">(a−b)³ = a³ − 3a²b + 3ab² − b³</IdItem>
+                <IdItem n="14">a³ + b³ = (a+b)(a²−ab+b²)</IdItem>
+                <IdItem n="15">a³ − b³ = (a−b)(a²+ab+b²)</IdItem>
+              </div>
+              <Mem title="💡 ঘন সূত্র মনে রাখুন">
+                <ul>
+                  <li>(a+b)³: a³, <strong>+</strong>3a²b, <strong>+</strong>3ab², <strong>+</strong>b³</li>
+                  <li>(a−b)³: a³, <strong>−</strong>3a²b, <strong>+</strong>3ab², <strong>−</strong>b³ (চিহ্ন পাল্টায়)</li>
+                  <li>a³+b³ → মাঝে <strong>−ab</strong> → (a²−ab+b²)</li>
+                  <li>a³−b³ → মাঝে <strong>+ab</strong> → (a²+ab+b²)</li>
+                </ul>
+              </Mem>
+            </Card>
+          </div>
+          <Warn title="⚠️ সবচেয়ে বেশি ভুল হয় এই সূত্রগুলোতে" style={{marginTop:10}}>
+            <p>(a+b)² ≠ a² + b² (2ab ভুলে যাবেন না!) &nbsp;|&nbsp; a³+b³ ≠ (a+b)³ &nbsp;|&nbsp; a²+b² ≠ (a+b)(a−b)</p>
+          </Warn>
+        </div>
+
+        {/* ══ S9: SERIES ════════════════════════════════════════ */}
+        <div className="mf-section" id="series">
+          <SectionHeader icon="∑" title="সমান্তর ও গুণোত্তর ধারা" sub="Arithmetic Progression (AP) · Geometric Progression (GP)" />
+          <div className="mf-grid2">
+            <Card color="blue">
+              <CardTitle color="#5ba4f5">সমান্তর ধারা (AP)</CardTitle>
+              <p style={{fontSize:13,color:'var(--text-3)',marginBottom:10}}>
+                প্রথম পদ <span className="mf-fi">a</span>, সাধারণ অন্তর <span className="mf-fi">d</span>, পদসংখ্যা <span className="mf-fi">n</span>
+              </p>
+              <div className="mf-series-card"><div className="step">n-তম পদ (Tₙ)</div><div className="formula">Tₙ = a + (n−1)d</div></div>
+              <div className="mf-series-card"><div className="step">n পদের সমষ্টি (Sₙ)</div><div className="formula">Sₙ = n/2 × [2a + (n−1)d]</div></div>
+              <div className="mf-series-card"><div className="step">গাণিতিক গড় (AM)</div><div className="formula">AM = (প্রথম পদ + শেষ পদ) / 2</div></div>
+              <div style={{background:'var(--elevated)',borderRadius:8,padding:12,marginTop:10,borderLeft:'3px solid #0fdba8'}}>
+                <div style={{color:'#0fdba8',fontSize:13,fontWeight:700,marginBottom:8}}>বিশেষ সমষ্টি সূত্র</div>
+                <FBox label="1+2+...+n" val="= n(n+1)/2"/>
+                <FBox label="1²+2²+...+n²" val="= n(n+1)(2n+1)/6"/>
+                <FBox label="1³+2³+...+n³" val="= [n(n+1)/2]²" highlight/>
+              </div>
+              <Mem title="💡 মনে রাখুন">
+                <ul>
+                  <li>n পদের সমষ্টি = <strong>n × গড়</strong></li>
+                  <li>n³ এর সমষ্টি = (1+2+...+n) এর <strong>বর্গ</strong></li>
+                </ul>
+              </Mem>
+            </Card>
+
+            <Card color="gold">
+              <CardTitle>গুণোত্তর ধারা (GP)</CardTitle>
+              <p style={{fontSize:13,color:'var(--text-3)',marginBottom:10}}>
+                প্রথম পদ <span className="mf-fi">a</span>, সাধারণ অনুপাত <span className="mf-fi">r</span>, পদসংখ্যা <span className="mf-fi">n</span>
+              </p>
+              <div className="mf-series-card"><div className="step">n-তম পদ</div><div className="formula">Tₙ = a × r^(n−1)</div></div>
+              <div className="mf-series-card" style={{borderLeft:'3px solid #f0a500'}}>
+                <div className="step">n পদের সমষ্টি — r &gt; 1 হলে</div>
+                <div className="formula">Sₙ = a × (rⁿ − 1) / (r − 1)</div>
+              </div>
+              <div className="mf-series-card"><div className="step">n পদের সমষ্টি — r &lt; 1 হলে</div><div className="formula">Sₙ = a × (1 − rⁿ) / (1 − r)</div></div>
+              <Mem title="💡 AP vs GP পার্থক্য">
+                <ul>
+                  <li><strong>AP:</strong> যোগ/বিয়োগ → পরের পদ (d = ধ্রুবক পার্থক্য)</li>
+                  <li><strong>GP:</strong> গুণ/ভাগ → পরের পদ (r = ধ্রুবক অনুপাত)</li>
+                  <li>AP তে <strong>(n−1)d</strong>, GP তে <strong>r^(n−1)</strong></li>
+                </ul>
+              </Mem>
+            </Card>
+          </div>
+        </div>
+
+        {/* ══ S10: PERMUTATION & COMBINATION ════════════════════ */}
+        <div className="mf-section" id="pnc">
+          <SectionHeader icon="nPr" title="বিন্যাস ও সমাবেশ" sub="Permutation · Combination · Graph Theory" />
+          <div className="mf-grid2">
+            <Card color="violet">
+              <CardTitle color="#a78bfa">বিন্যাস — Permutation (সাজানো)</CardTitle>
+              <FBox label="nPr" val="= n! / (n−r)!"/>
+              <FBox label="n বস্তু বৃত্তাকারে" val="= (n−1)!" highlight/>
+              <FBox label="একই রকম বস্তু গলায় রাখা" val="= (n−1)! / 2"/>
+              <Mem title="💡 বৃত্তাকার বিন্যাস">
+                <p>বৃত্তে একটি ধরে রাখা যায় → বাকি (n-1)টি সাজানো হয় → (n-1)!</p>
+              </Mem>
+            </Card>
+
+            <Card color="teal">
+              <CardTitle color="#0fdba8">সমাবেশ — Combination (বাছাই)</CardTitle>
+              <FBox label="nCr" val="= n! / [r! × (n−r)!]"/>
+              <FBox label="nC0 = nCn" val="= 1"/>
+              <FBox label="nCr + nC(r-1)" val="= (n+1)Cr" highlight/>
+              <div style={{background:'var(--elevated)',borderRadius:8,padding:12,marginTop:10,borderLeft:'3px solid #f0a500'}}>
+                <div style={{color:'#f0a500',fontSize:13,fontWeight:700,marginBottom:8}}>Handshake ও Graph সমস্যা</div>
+                <FBox label="n জনের Handshake" val="= n(n−1)/2"/>
+                <FBox label="n জনের চিঠি (দু-দিকে)" val="= n(n−1)"/>
+                <FBox label="n বাহুর বহুভুজের কর্ণ" val="= n(n−3)/2"/>
+              </div>
+              <Mem title="💡 Handshake vs চিঠি">
+                <p>Handshake = <strong>÷2</strong> (A-B ও B-A একই)<br/>
+                চিঠি = <strong>÷2 নয়</strong> (A→B ও B→A আলাদা)</p>
+              </Mem>
+            </Card>
+          </div>
+        </div>
+
+        {/* ══ S11: SET & PROBABILITY ════════════════════════════ */}
+        <div className="mf-section" id="set">
+          <SectionHeader icon="∩" title="সেট তত্ত্ব ও সম্ভাবনা" sub="Set Theory · Probability" />
+          <div className="mf-grid2">
+            <Card color="gold">
+              <CardTitle>সেট তত্ত্ব (Set Theory)</CardTitle>
+              <FBox label="n(A∪B)" val="= n(A) + n(B) − n(A∩B)"/>
+              <FBox label="n(A∪B∪C)" val="= n(A)+n(B)+n(C) − n(A∩B) − n(B∩C) − n(A∩C) + n(A∩B∩C)"/>
+              <FBox label="প্রকৃত উপসেট" val="= 2ⁿ − 1"/>
+              <FBox label="শক্তি সেট P(A)" val="= 2ⁿ" highlight/>
+              <div style={{background:'var(--elevated)',borderRadius:8,padding:10,marginTop:8}}>
+                <div style={{fontSize:13,color:'#f0a500',marginBottom:6,fontWeight:700}}>De Morgan's Law</div>
+                <FBox label="(A∪B)' =" val="A' ∩ B'"/>
+                <FBox label="(A∩B)' =" val="A' ∪ B'" highlight/>
+              </div>
+              <Mem title="💡 উপসেট ও শক্তি সেট">
+                <p>n সদস্যের সেটের উপসেট = <strong>2ⁿ</strong>, প্রকৃত উপসেট = <strong>2ⁿ − 1</strong></p>
+                <p>{'A={a,b} → n=2 → উপসেট: {},{a},{b},{a,b} = ৪টি'}</p>
+              </Mem>
+            </Card>
+
+            <Card color="violet">
+              <CardTitle color="#a78bfa">সম্ভাবনা (Probability)</CardTitle>
+              <div className="mf-prob-item"><div className="cond">A ও B স্বাধীন (Independent)</div><div className="form">P(A∩B) = P(A) · P(B)</div></div>
+              <div className="mf-prob-item"><div className="cond">A ও B বর্জনশীল (Mutually Exclusive)</div><div className="form">P(A∪B) = P(A) + P(B)</div></div>
+              <div className="mf-prob-item"><div className="cond">A ও B সাধারণ ঘটনা</div><div className="form">P(A∪B) = P(A) + P(B) − P(A∩B)</div></div>
+              <div className="mf-prob-item"><div className="cond">শর্তাধীন — A ঘটলে B এর সম্ভাবনা</div><div className="form">P(B|A) = P(A∩B) / P(A)</div></div>
+              <div className="mf-prob-item"><div className="cond">A না ঘটার সম্ভাবনা</div><div className="form">P(A') = 1 − P(A)</div></div>
+              <div className="mf-prob-item"><div className="cond">P(A'∩B')</div><div className="form">= P((A∪B)') = 1 − P(A∪B)</div></div>
+              <div className="mf-prob-item"><div className="cond">P(A'∪B')</div><div className="form">= P((A∩B)') = 1 − P(A∩B)</div></div>
+              <Mem title="💡 মনে রাখুন">
+                <ul>
+                  <li><strong>স্বাধীন:</strong> গুণ (P·P) &nbsp;|&nbsp; <strong>বর্জনশীল:</strong> যোগ</li>
+                  <li>P(A) + P(A') = <strong>1</strong> সবসময়</li>
+                  <li>0 ≤ P(A) ≤ 1 সবসময়</li>
+                </ul>
+              </Mem>
+            </Card>
+          </div>
+        </div>
+
+        {/* ══ S12: LCM & GCD ════════════════════════════════════ */}
+        <div className="mf-section" id="lcm">
+          <SectionHeader icon="÷" title="ল.সা.গু ও গ.সা.গু" sub="LCM (Lowest Common Multiple) · GCD / HCF (Greatest Common Divisor)" />
+          <div className="mf-grid2">
+            <Card color="teal">
+              <CardTitle color="#0fdba8">মূল সম্পর্ক</CardTitle>
+              <FBox label="গুরুত্বপূর্ণ সম্পর্ক" val="সংখ্যাগুলোর গুণফল = ল.সা.গু × গ.সা.গু" highlight/>
+              <FBox label="অতএব" val="একটি সংখ্যা = (ল.সা.গু × গ.সা.গু) / অপর সংখ্যা"/>
+              <ul className="mf-prop-list" style={{marginTop:10}}>
+                <li>সংখ্যাগুলোকে গ.সা.গু দিয়ে ভাগ করলে অনুপাত পাওয়া যায়</li>
+                <li>অনুপাতে একটি সংখ্যার সাথে গ.সা.গু গুণ করলে সংখ্যা পাওয়া যায়</li>
+              </ul>
+            </Card>
+
+            <Card color="blue">
+              <CardTitle color="#5ba4f5">ভগ্নাংশের ল.সা.গু ও গ.সা.গু</CardTitle>
+              <FBox label="ভগ্নাংশের ল.সা.গু" val="= লবগুলোর ল.সা.গু / হরগুলোর গ.সা.গু" highlight/>
+              <FBox label="ভগ্নাংশের গ.সা.গু" val="= লবগুলোর গ.সা.গু / হরগুলোর ল.সা.গু"/>
+              <Mem title="💡 মনে রাখার সহজ উপায়">
+                <p><strong>ল.সা.গু:</strong> লব-এ ল, হর-এ গ<br/>
+                <strong>গ.সা.গু:</strong> উল্টো — লব-এ গ, হর-এ ল</p>
+              </Mem>
+            </Card>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="mf-footer">
+          <p>গণিত সূত্র সংকলন · সব সূত্র একটি পৃষ্ঠায়</p>
+          <p className="sub">জ্যামিতি · বীজগণিত · সেট তত্ত্ব · সম্ভাবনা · ধারা · বিন্যাস-সমাবেশ</p>
+        </div>
+
+      </div>
+    </div>
+  )
+}
+
+/* ── Helper components ───────────────────────── */
+
+function SectionHeader({ icon, title, sub }) {
+  return (
+    <div className="mf-sec-header">
+      <div className="mf-sec-icon" style={{background:'var(--elevated)'}}>{icon}</div>
+      <div>
+        <div className="mf-sec-title">{title}</div>
+        <div className="mf-sec-sub">{sub}</div>
+      </div>
+    </div>
+  )
+}
+
+function Card({ color = 'gold', children, style }) {
+  return (
+    <div className={`mf-card ${color}`} style={style}>
+      {children}
+    </div>
+  )
+}
+
+function CardTitle({ color, badge, badgeStyle, children }) {
+  return (
+    <div className="mf-card-title" style={color ? {color} : {}}>
+      {children}
+      {badge && <span className="mf-badge" style={badgeStyle}>{badge}</span>}
+    </div>
+  )
+}
+
+function FBox({ label, val, highlight }) {
+  return (
+    <div className={`mf-f-box${highlight ? ' highlight' : ''}`}>
+      <span className="label">{label}</span>
+      <span className="val">{val}</span>
+    </div>
+  )
+}
+
+function Mem({ title, children, style }) {
+  return (
+    <div className="mf-mem" style={style}>
+      <div className="mf-mem-title">{title}</div>
+      {children}
+    </div>
+  )
+}
+
+function Warn({ title, children, style }) {
+  return (
+    <div className="mf-warn" style={style}>
+      <div className="mf-warn-title">{title}</div>
+      {children}
+    </div>
+  )
+}
+
+function IdItem({ n, star, children }) {
+  return (
+    <div className="mf-id-item">
+      <div className={`mf-id-num${star ? ' star' : ''}`}>{star ? '★' : n}</div>
+      <div className="mf-id-text">{children}</div>
+    </div>
+  )
+}
+
+function StatBox({ val, label, color }) {
+  return (
+    <div style={{textAlign:'center',background:'var(--elevated)',borderRadius:8,padding:10}}>
+      <div style={{fontSize:28,fontWeight:700,color}}>{val}</div>
+      <div style={{fontSize:12,color:'var(--text-3)'}}>{label}</div>
+    </div>
+  )
+}

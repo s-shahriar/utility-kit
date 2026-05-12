@@ -2,7 +2,12 @@ import { useState } from 'react'
 import { Wrench, Moon, Sun } from 'lucide-react'
 
 const TOOLS = [
-  // tools will be added here as we build them
+  {
+    id: 'math_formulas',
+    icon: '📐',
+    title: 'গণিত সূত্র',
+    description: 'জ্যামিতি · বীজগণিত · সেট · সম্ভাবনা — সম্পূর্ণ সূত্র সংকলন',
+  },
 ]
 
 export default function HomeScreen({ onOpen }) {

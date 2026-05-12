@@ -1,0 +1,419 @@
+/* Math Formulas module — scoped with .mf- prefix */
+
+.mf-root {
+  --mf-gold:    #f0a500;
+  --mf-gold2:   #ffd166;
+  --mf-teal:    #0fdba8;
+  --mf-rose:    #f06d7e;
+  --mf-blue:    #5ba4f5;
+  --mf-violet:  #a78bfa;
+  font-family: 'Hind Siliguri', 'Inter', sans-serif;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Top bar ─────────────────────────────────── */
+.mf-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--surface-glass);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+}
+
+.mf-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  color: var(--text-3);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.mf-back-btn:hover { background: var(--hover-bg); color: var(--accent); }
+
+.mf-topbar-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-2);
+}
+
+/* ── Sticky section nav ──────────────────────── */
+.mf-nav {
+  position: sticky;
+  top: 49px;
+  z-index: 10;
+  background: rgba(var(--bg-rgb, 237,240,250), 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 18px;
+}
+
+[data-theme="dark"] .mf-nav {
+  background: rgba(4,6,26,0.92);
+}
+
+.mf-nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 8px 0;
+  scrollbar-width: none;
+}
+.mf-nav-inner::-webkit-scrollbar { display: none; }
+
+.mf-nav-btn {
+  white-space: nowrap;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-3);
+  font-family: 'Hind Siliguri', 'Inter', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.mf-nav-btn:hover,
+.mf-nav-btn.active {
+  background: var(--mf-gold);
+  color: #000;
+  border-color: var(--mf-gold);
+  font-weight: 600;
+}
+
+/* ── Hero ────────────────────────────────────── */
+.mf-hero {
+  text-align: center;
+  padding: 48px 20px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.mf-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(240,165,0,.1), transparent);
+  pointer-events: none;
+}
+.mf-hero h1 {
+  font-family: 'Space Grotesk', 'Hind Siliguri', sans-serif;
+  font-size: clamp(24px, 5vw, 42px);
+  background: linear-gradient(135deg, var(--mf-gold), var(--mf-gold2), var(--mf-teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+.mf-hero p { color: var(--text-3); font-size: 15px; max-width: 500px; margin: 0 auto; }
+
+/* ── Wrap ────────────────────────────────────── */
+.mf-wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px 80px; }
+
+/* ── Section ─────────────────────────────────── */
+.mf-section { margin-bottom: 50px; scroll-margin-top: 110px; }
+
+.mf-sec-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+}
+.mf-sec-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.mf-sec-title { font-size: 22px; font-weight: 700; color: var(--mf-gold2); }
+.mf-sec-sub { font-size: 13px; color: var(--text-3); margin-top: 2px; }
+
+/* ── Grid ────────────────────────────────────── */
+.mf-grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.mf-grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+
+/* ── Card ────────────────────────────────────── */
+.mf-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.mf-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.mf-card.gold::before  { background: linear-gradient(90deg, var(--mf-gold), var(--mf-gold2)); }
+.mf-card.teal::before  { background: linear-gradient(90deg, var(--mf-teal), #0a8c6f); }
+.mf-card.rose::before  { background: linear-gradient(90deg, var(--mf-rose), #c0334d); }
+.mf-card.blue::before  { background: linear-gradient(90deg, var(--mf-blue), #2563eb); }
+.mf-card.violet::before{ background: linear-gradient(90deg, var(--mf-violet), #7c3aed); }
+
+.mf-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--mf-gold2);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mf-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: rgba(240,165,0,.15);
+  color: var(--mf-gold);
+  border: 1px solid rgba(240,165,0,.3);
+}
+
+/* ── Formula box ─────────────────────────────── */
+.mf-f-box {
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 6px 0;
+  font-size: 15px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.mf-f-box .label {
+  color: var(--text-3);
+  font-size: 13px;
+  white-space: nowrap;
+  min-width: 80px;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+.mf-f-box .val { color: var(--mf-gold2); font-weight: 600; word-break: break-word; }
+.mf-f-box.highlight .val { color: var(--mf-teal); }
+
+/* ── Inline formula ──────────────────────────── */
+.mf-fi {
+  color: var(--mf-gold);
+  font-weight: 700;
+  background: rgba(240,165,0,.1);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+/* ── Prop list ───────────────────────────────── */
+.mf-prop-list { list-style: none; margin-top: 8px; }
+.mf-prop-list li {
+  padding: 5px 0 5px 18px;
+  position: relative;
+  font-size: 14px;
+  color: var(--text-2);
+  border-bottom: 1px solid var(--border);
+}
+.mf-prop-list li:last-child { border-bottom: none; }
+.mf-prop-list li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--mf-gold);
+  font-weight: 700;
+}
+
+/* ── Memory tip ──────────────────────────────── */
+.mf-mem {
+  background: rgba(15,219,168,0.06);
+  border: 1px solid rgba(15,219,168,0.25);
+  border-left: 3px solid var(--mf-teal);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-top: 14px;
+}
+.mf-mem-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--mf-teal);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mf-mem p, .mf-mem li { font-size: 13px; color: #7ec4b5; line-height: 1.6; }
+.mf-mem ul { padding-left: 16px; margin-top: 4px; }
+.mf-mem li { margin-bottom: 3px; }
+
+/* ── Warning ─────────────────────────────────── */
+.mf-warn {
+  background: rgba(240,108,126,0.08);
+  border: 1px solid rgba(240,108,126,0.25);
+  border-left: 3px solid var(--mf-rose);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin-top: 10px;
+}
+.mf-warn p { font-size: 13px; color: var(--text-2); }
+.mf-warn-title { font-size: 13px; font-weight: 700; color: var(--mf-rose); margin-bottom: 5px; }
+
+/* ── Diagram row ─────────────────────────────── */
+.mf-diagram-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0; }
+.mf-diagram-box {
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  flex: 1;
+  min-width: 130px;
+  max-width: 200px;
+}
+.mf-diagram-box svg { display: block; margin: 0 auto 6px; }
+.mf-diagram-box .dlabel { font-size: 12px; color: var(--text-3); line-height: 1.4; }
+.mf-diagram-box .dval  { font-size: 13px; color: var(--mf-gold2); font-weight: 600; margin-top: 3px; }
+
+/* ── Angle grid ──────────────────────────────── */
+.mf-angle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+.mf-angle-item {
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+.mf-angle-item svg { display: block; margin: 0 auto 4px; }
+.mf-angle-item .aname { font-size: 12px; color: var(--mf-gold2); font-weight: 600; }
+.mf-angle-item .aval  { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+
+/* ── Identity list ───────────────────────────── */
+.mf-id-list { counter-reset: id-counter; }
+.mf-id-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+.mf-id-item:last-child { border-bottom: none; }
+.mf-id-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(240,165,0,.15);
+  border: 1px solid rgba(240,165,0,.3);
+  color: var(--mf-gold);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.mf-id-num.star {
+  background: rgba(240,165,0,.2);
+  font-size: 13px;
+}
+.mf-id-text { font-size: 14px; color: var(--text-2); }
+
+/* ── Compare table ───────────────────────────── */
+.mf-cmp-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+.mf-cmp-table th {
+  background: rgba(240,165,0,.1);
+  color: var(--mf-gold);
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid rgba(240,165,0,.2);
+}
+.mf-cmp-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-2);
+}
+.mf-cmp-table tr:hover td { background: var(--hover-bg); }
+.mf-cmp-table .hl { color: var(--mf-teal); font-weight: 600; }
+
+/* ── Tags ────────────────────────────────────── */
+.mf-tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+}
+.mf-tag.g { background: rgba(240,165,0,.12); color: var(--mf-gold); border: 1px solid rgba(240,165,0,.25); }
+.mf-tag.t { background: rgba(15,219,168,.1); color: var(--mf-teal); border: 1px solid rgba(15,219,168,.2); }
+.mf-tag.r { background: rgba(240,108,126,.1); color: var(--mf-rose); border: 1px solid rgba(240,108,126,.2); }
+
+/* ── Probability item ────────────────────────── */
+.mf-prob-item {
+  padding: 8px 12px;
+  background: var(--elevated);
+  border-radius: 8px;
+  margin: 5px 0;
+  border-left: 3px solid var(--mf-violet);
+}
+.mf-prob-item .cond { font-size: 13px; color: var(--text-3); margin-bottom: 3px; }
+.mf-prob-item .form { font-size: 14px; color: var(--mf-violet); font-weight: 600; }
+
+/* ── Series card ─────────────────────────────── */
+.mf-series-card {
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  margin: 8px 0;
+}
+.mf-series-card .step { font-size: 13px; color: var(--text-3); margin-bottom: 4px; }
+.mf-series-card .formula { font-size: 15px; color: var(--mf-gold2); font-weight: 600; }
+
+/* ── Footer ──────────────────────────────────── */
+.mf-footer {
+  text-align: center;
+  padding: 40px 0 20px;
+  border-top: 1px solid var(--border);
+  margin-top: 20px;
+}
+.mf-footer p { color: var(--text-3); font-size: 13px; }
+.mf-footer .sub { color: var(--border); font-size: 12px; margin-top: 6px; }
+
+/* ── Responsive ──────────────────────────────── */
+@media (max-width: 640px) {
+  .mf-grid2, .mf-grid3 { grid-template-columns: 1fr; }
+  .mf-diagram-row { justify-content: center; }
+  .mf-cmp-table { font-size: 12px; }
+  .mf-hero h1 { font-size: 28px; }
+}
