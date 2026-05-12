@@ -4,6 +4,7 @@ import './MathFormulas.css'
 
 const SECTIONS = [
   { id: 'triangle', label: 'ত্রিভুজ' },
+  { id: 'trig',     label: 'ত্রিকোণমিতি' },
   { id: 'tri-center',label: 'ত্রিভুজ কেন্দ্র' },
   { id: 'quad',     label: 'চতুর্ভুজ' },
   { id: 'circle',   label: 'বৃত্ত ও বহুভুজ' },
@@ -197,6 +198,144 @@ export default function MathFormulas({ onBack }) {
                 </svg>
               </div>
             </div>
+          </Card>
+        </div>
+
+        {/* ══ S-TRIG: TRIGONOMETRY ══════════════════════════════ */}
+        <div className="mf-section" id="trig">
+          <SectionHeader icon="✋" title="ত্রিকোণমিতি — আঙুলের কৌশল" sub="sin · cos · tan — মানসম্পন্ন কোণের মান" />
+
+          {/* Full value table */}
+          <Card color="violet" style={{marginBottom:16}}>
+            <CardTitle color="var(--mf-violet)">sin · cos · tan — সম্পূর্ণ মানের ছক</CardTitle>
+            <div className="mf-table-scroll">
+              <table className="mf-cmp-table" style={{minWidth:340}}>
+                <thead>
+                  <tr><th>কোণ</th><th>sin</th><th>cos</th><th>tan</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong style={{color:'var(--mf-gold)'}}>0°</strong></td>
+                    <td className="hl">0</td><td className="hl">1</td><td className="hl">0</td>
+                  </tr>
+                  <tr>
+                    <td><strong style={{color:'var(--mf-gold)'}}>30°</strong></td>
+                    <td className="hl">½</td><td className="hl">√3 / 2</td><td className="hl">1 / √3</td>
+                  </tr>
+                  <tr>
+                    <td><strong style={{color:'var(--mf-gold)'}}>45°</strong></td>
+                    <td className="hl">1 / √2</td><td className="hl">1 / √2</td><td className="hl">1</td>
+                  </tr>
+                  <tr>
+                    <td><strong style={{color:'var(--mf-gold)'}}>60°</strong></td>
+                    <td className="hl">√3 / 2</td><td className="hl">½</td><td className="hl">√3</td>
+                  </tr>
+                  <tr>
+                    <td><strong style={{color:'var(--mf-gold)'}}>90°</strong></td>
+                    <td className="hl">1</td><td className="hl">0</td><td className="hl">অসংজ্ঞায়িত (∞)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <Mem title="💡 tan মনে রাখুন">
+              <p>tan θ = sin θ / cos θ &nbsp;|&nbsp;
+              <strong>0° → 1 → ∞</strong> (ছোট থেকে অসীম পর্যন্ত বাড়ে)</p>
+            </Mem>
+          </Card>
+
+          {/* Finger trick */}
+          <div className="mf-grid2">
+            <Card color="teal">
+              <CardTitle color="var(--mf-teal)">✋ আঙুলের কৌশল — sin ও cos</CardTitle>
+              {/* Hand diagram */}
+              <div style={{textAlign:'center', margin:'10px 0'}}>
+                <svg width="200" height="120" viewBox="0 0 200 120">
+                  {/* Palm base */}
+                  <rect x="50" y="80" width="100" height="30" rx="8" fill="rgba(15,219,168,.1)" stroke="#0fdba8" strokeWidth="1.5"/>
+                  {/* Fingers: thumb=0°, index=30°, middle=45°, ring=60°, pinky=90° */}
+                  {[
+                    {x:55, label:'0°', color:'#f0a500'},
+                    {x:80, label:'30°', color:'#0fdba8'},
+                    {x:100, label:'45°', color:'#5ba4f5'},
+                    {x:120, label:'60°', color:'#a78bfa'},
+                    {x:140, label:'90°', color:'#f06d7e'},
+                  ].map((f, i) => (
+                    <g key={i}>
+                      <rect x={f.x-10} y={20} width={20} height={62} rx={6}
+                        fill={`${f.color}22`} stroke={f.color} strokeWidth="1.5"/>
+                      <text x={f.x} y={15} textAnchor="middle" fill={f.color} fontSize="9" fontWeight="700">{f.label}</text>
+                    </g>
+                  ))}
+                  {/* Labels */}
+                  <text x="50" y="118" fill="var(--mf-teal)" fontSize="9" fontFamily="sans-serif">বুড়ো</text>
+                  <text x="78" y="118" fill="var(--mf-teal)" fontSize="9" fontFamily="sans-serif">তর্জনী</text>
+                  <text x="97" y="118" fill="var(--mf-teal)" fontSize="9" fontFamily="sans-serif">মধ্যমা</text>
+                  <text x="116" y="118" fill="var(--mf-teal)" fontSize="9" fontFamily="sans-serif">অনামিকা</text>
+                  <text x="133" y="118" fill="var(--mf-teal)" fontSize="9" fontFamily="sans-serif">কনিষ্ঠা</text>
+                </svg>
+              </div>
+              <ul className="mf-prop-list">
+                <li>যে কোণের মান বের করবে, সেই আঙুলটি <strong>ভাঁজ</strong> করো</li>
+                <li><strong style={{color:'var(--mf-teal)'}}>sin θ</strong> = √(বাম দিকের আঙুল সংখ্যা) / 2</li>
+                <li><strong style={{color:'var(--mf-blue)'}}>cos θ</strong> = √(ডান দিকের আঙুল সংখ্যা) / 2</li>
+              </ul>
+            </Card>
+
+            <Card color="gold">
+              <CardTitle>প্রতিটি কোণে কতটি আঙুল?</CardTitle>
+              {/* Per-angle finger count visual */}
+              {[
+                {angle:'0°',  left:0, right:4, sin:'√0/2 = 0',    cos:'√4/2 = 1'},
+                {angle:'30°', left:1, right:3, sin:'√1/2 = ½',    cos:'√3/2'},
+                {angle:'45°', left:2, right:2, sin:'√2/2 = 1/√2', cos:'√2/2 = 1/√2'},
+                {angle:'60°', left:3, right:1, sin:'√3/2',        cos:'√1/2 = ½'},
+                {angle:'90°', left:4, right:0, sin:'√4/2 = 1',    cos:'√0/2 = 0'},
+              ].map(r => (
+                <div key={r.angle} style={{
+                  display:'grid', gridTemplateColumns:'36px 1fr 1fr',
+                  alignItems:'center', gap:6,
+                  padding:'7px 0', borderBottom:'1px solid var(--border)',
+                  fontSize:13,
+                }}>
+                  <strong style={{color:'var(--mf-gold)', fontFamily:"'JetBrains Mono',monospace"}}>{r.angle}</strong>
+                  <span>
+                    <span style={{color:'var(--mf-teal)', fontWeight:700}}>sin</span>
+                    {' = '}<span style={{color:'var(--text-2)'}}>{r.sin}</span>
+                  </span>
+                  <span>
+                    <span style={{color:'var(--mf-blue)', fontWeight:700}}>cos</span>
+                    {' = '}<span style={{color:'var(--text-2)'}}>{r.cos}</span>
+                  </span>
+                </div>
+              ))}
+              <Mem title="💡 প্যাটার্ন">
+                <p>sin ↑ বাড়ে (0→1), cos ↓ কমে (1→0) — সবসময় উল্টো দিকে।<br/>
+                sin² θ + cos² θ = <strong>1</strong> সবসময়।</p>
+              </Mem>
+            </Card>
+          </div>
+
+          {/* tan derived values */}
+          <Card color="rose" style={{marginTop:16}}>
+            <CardTitle>tan — সম্পূর্ণ মান</CardTitle>
+            <div className="mf-grid3">
+              {[
+                {a:'tan 0°', v:'0', note:'sin÷cos = 0÷1'},
+                {a:'tan 30°', v:'1/√3', note:'(½) ÷ (√3/2)'},
+                {a:'tan 45°', v:'1', note:'(1/√2) ÷ (1/√2)'},
+                {a:'tan 60°', v:'√3', note:'(√3/2) ÷ (½)'},
+                {a:'tan 90°', v:'∞', note:'sin÷cos = 1÷0'},
+              ].map(t => (
+                <div key={t.a} style={{background:'var(--elevated)',borderRadius:8,padding:'10px 12px',borderLeft:'3px solid var(--mf-rose)'}}>
+                  <div style={{color:'var(--mf-rose)',fontWeight:700,fontSize:13,fontFamily:"'JetBrains Mono',monospace"}}>{t.a}</div>
+                  <div style={{color:'var(--mf-gold2)',fontWeight:700,fontSize:18,margin:'4px 0'}}>{t.v}</div>
+                  <div style={{color:'var(--text-3)',fontSize:11}}>{t.note}</div>
+                </div>
+              ))}
+            </div>
+            <Warn title="⚠️ মনে রাখুন">
+              <p>tan 90° অসংজ্ঞায়িত কারণ cos 90° = 0, আর শূন্য দিয়ে ভাগ করা যায় না।</p>
+            </Warn>
           </Card>
         </div>
 
