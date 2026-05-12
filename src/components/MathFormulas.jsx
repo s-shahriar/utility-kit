@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { ChevronLeft } from 'lucide-react'
+import katex from 'katex'
+import 'katex/dist/katex.min.css'
 import './MathFormulas.css'
 
 const SECTIONS = [
@@ -110,7 +112,7 @@ export default function MathFormulas({ onBack }) {
                 </svg>
               </div>
               <FBox label="পরিসীমা" val="= 3a"/>
-              <FBox label="ক্ষেত্রফল" val="= (√3/4) × a²" highlight/>
+              <FBox label="ক্ষেত্রফল" tex="= \\dfrac{\\sqrt{3}}{4}\\,a^2" highlight/>
               <Mem title="💡 মনে রাখুন"><p>সব বাহু সমান = শুধু "a" — সূত্রে অন্য কোনো অক্ষর নেই।</p></Mem>
             </Card>
 
@@ -127,8 +129,8 @@ export default function MathFormulas({ onBack }) {
                   <text x="55" y="108" fill="#f0a500" fontSize="13" fontWeight="700">b</text>
                 </svg>
               </div>
-              <FBox label="ক্ষেত্রফল" val="= (b/4) × √(4a²−b²)" highlight/>
-              <FBox label="উচ্চতা h" val="= √(a² − b²/4)"/>
+              <FBox label="ক্ষেত্রফল" tex="= \\dfrac{b}{4}\\sqrt{4a^2-b^2}" highlight/>
+              <FBox label="উচ্চতা h" tex="= \\sqrt{a^2 - \\dfrac{b^2}{4}}"/>
               <Mem title="💡 মনে রাখুন"><p><strong>b = ভূমি</strong> (বেজ), <strong>a = সমান দুটি বাহু</strong> — "b" আলাদা কারণ ভূমি আলাদা।</p></Mem>
             </Card>
 
@@ -142,8 +144,8 @@ export default function MathFormulas({ onBack }) {
                   <text x="60" y="104" fill="#f06d7e" fontSize="13" fontWeight="700">c</text>
                 </svg>
               </div>
-              <FBox label="ক্ষেত্রফল" val="= √(s(s−a)(s−b)(s−c))" highlight/>
-              <FBox label="s (অর্ধপরি)" val="= (a+b+c) / 2"/>
+              <FBox label="ক্ষেত্রফল" tex="= \\sqrt{s(s-a)(s-b)(s-c)}" highlight/>
+              <FBox label="s (অর্ধপরি)" tex="= \\dfrac{a+b+c}{2}"/>
               <Mem title="💡 হেরনের সূত্র"><p>"<strong>s</strong> থেকে তিনটি বাদ দাও, গুণ করো, বর্গমূল নাও"</p></Mem>
             </Card>
           </div>
@@ -160,7 +162,7 @@ export default function MathFormulas({ onBack }) {
                   <text x="24" y="95" fill="#f0a500" fontSize="11" fontWeight="600">θ</text>
                 </svg>
               </div>
-              <FBox label="ক্ষেত্রফল" val="= ½ × a × b × sin θ" highlight/>
+              <FBox label="ক্ষেত্রফল" tex="= \\dfrac{1}{2}\\,ab\\sin\\theta" highlight/>
               <p style={{fontSize:13,color:'var(--text-3)',marginTop:8}}>যেখানে a ও b দুটি বাহু এবং θ তাদের অন্তর্ভুক্ত কোণ</p>
             </Card>
 
@@ -498,9 +500,9 @@ export default function MathFormulas({ onBack }) {
                   <text x="55" y="56" fill="#ffd166" fontSize="11">√2·a</text>
                 </svg>
               </div>
-              <FBox label="ক্ষেত্রফল" val="= a²"/>
+              <FBox label="ক্ষেত্রফল" tex="= a^2"/>
               <FBox label="পরিসীমা" val="= 4a"/>
-              <FBox label="কর্ণ" val="= √2 × a" highlight/>
+              <FBox label="কর্ণ" tex="= \\sqrt{2}\\,a" highlight/>
               <p style={{fontSize:12,color:'var(--text-3)',marginTop:6}}>১ হেক্টর = ১০,০০০ বর্গমিটার</p>
             </Card>
 
@@ -521,7 +523,7 @@ export default function MathFormulas({ onBack }) {
               </div>
               <FBox label="ক্ষেত্রফল" val="= a × b"/>
               <FBox label="পরিসীমা" val="= 2(a + b)"/>
-              <FBox label="কর্ণ" val="= √(a² + b²)" highlight/>
+              <FBox label="কর্ণ" tex="= \\sqrt{a^2+b^2}" highlight/>
               <Mem title="💡"><p>কর্ণদ্বয় সমান এবং পরস্পরকে <strong>সমদ্বিখণ্ডিত</strong> করে।</p></Mem>
             </Card>
 
@@ -539,7 +541,7 @@ export default function MathFormulas({ onBack }) {
                   <text x="66" y="88" fill="#0fdba8" fontSize="12">a</text>
                 </svg>
               </div>
-              <FBox label="ক্ষেত্রফল" val="= ½ × d₁ × d₂" highlight/>
+              <FBox label="ক্ষেত্রফল" tex="= \\dfrac{1}{2}\\,d_1 d_2" highlight/>
               <FBox label="পরিসীমা" val="= 4a"/>
               <ul className="mf-prop-list" style={{marginTop:8}}>
                 <li>কর্ণদ্বয় পরস্পরকে <strong>সমকোণে সমদ্বিখণ্ডিত</strong> করে</li>
@@ -580,7 +582,7 @@ export default function MathFormulas({ onBack }) {
                   <text x="78" y="56" fill="#f0a500" fontSize="12">h</text>
                 </svg>
               </div>
-              <FBox label="ক্ষেত্রফল" val="= ½ × (a + b) × h" highlight/>
+              <FBox label="ক্ষেত্রফল" tex="= \\dfrac{1}{2}(a+b)h" highlight/>
               <ul className="mf-prop-list" style={{marginTop:8}}>
                 <li>এক জোড়া বাহু সমান্তরাল (a ও b)</li>
                 <li>দুই সমান্তরাল বাহু সমান হলে সামান্তরিক</li>
@@ -622,9 +624,9 @@ export default function MathFormulas({ onBack }) {
                   <text x="26" y="118" fill="#a78bfa" fontSize="11">θ</text>
                 </svg>
               </div>
-              <FBox label="ক্ষেত্রফল" val="= π r²"/>
-              <FBox label="পরিধি" val="= 2π r"/>
-              <FBox label="চাপের দৈর্ঘ্য (Arc)" val="= r θ" highlight/>
+              <FBox label="ক্ষেত্রফল" tex="= \\pi r^2"/>
+              <FBox label="পরিধি" tex="= 2\\pi r"/>
+              <FBox label="চাপের দৈর্ঘ্য (Arc)" tex="= r\\theta" highlight/>
               <FBox label="কেন্দ্রীয় কোণ" val="= 2 × বৃত্তস্থ কোণ"/>
               <ul className="mf-prop-list" style={{marginTop:8}}>
                 <li>একই চাপের উপর দাঁড়ানো সকল বৃত্তস্থ কোণ সমান</li>
@@ -645,9 +647,9 @@ export default function MathFormulas({ onBack }) {
                   <text x="12" y="148" fill="#8899aa" fontSize="11">(5−2)×180 = 540°</text>
                 </svg>
               </div>
-              <FBox label="অভ্যন্তরীণ কোণের সমষ্টি" val="= (n − 2) × 180°"/>
-              <FBox label="প্রতিটি বহিঃকোণ (সুষম)" val="= 360° / n" highlight/>
-              <FBox label="n বাহুর কর্ণ সংখ্যা" val="= n(n−3)/2"/>
+              <FBox label="অভ্যন্তরীণ কোণের সমষ্টি" tex="= (n-2)\\times 180^\\circ"/>
+              <FBox label="প্রতিটি বহিঃকোণ (সুষম)" tex="= \\dfrac{360^\\circ}{n}" highlight/>
+              <FBox label="n বাহুর কর্ণ সংখ্যা" tex="= \\dfrac{n(n-3)}{2}"/>
               <Mem title="💡 দ্রুত মনে রাখুন">
                 <p>ত্রিভুজ (n=3): 180° ✓ | চতুর্ভুজ (n=4): 360° ✓<br/>
                 পঞ্চভুজ (n=5): 540° | ষড়ভুজ (n=6): 720°</p>
@@ -732,9 +734,9 @@ export default function MathFormulas({ onBack }) {
                   <text x="1" y="68" fill="#ffd166" fontSize="12" fontWeight="700">h</text>
                 </svg>
               </div>
-              <FBox label="আয়তন" val="= πr²h"/>
-              <FBox label="বক্রপৃষ্ঠ (CSA)" val="= 2πrh"/>
-              <FBox label="সমগ্র পৃষ্ঠ (TSA)" val="= 2πr(r + h)" highlight/>
+              <FBox label="আয়তন" tex="= \\pi r^2 h"/>
+              <FBox label="বক্রপৃষ্ঠ (CSA)" tex="= 2\\pi rh"/>
+              <FBox label="সমগ্র পৃষ্ঠ (TSA)" tex="= 2\\pi r(r+h)" highlight/>
             </Card>
 
             <Card color="rose">
@@ -751,10 +753,10 @@ export default function MathFormulas({ onBack }) {
                   <text x="78" y="108" fill="#f06d7e" fontSize="12" fontWeight="700">r</text>
                 </svg>
               </div>
-              <FBox label="আয়তন" val="= ⅓ × πr²h"/>
-              <FBox label="তির্যক উচ্চতা l" val="= √(h² + r²)"/>
-              <FBox label="বক্রপৃষ্ঠ (CSA)" val="= πrl"/>
-              <FBox label="সমগ্র পৃষ্ঠ (TSA)" val="= πr(r + l)" highlight/>
+              <FBox label="আয়তন" tex="= \\dfrac{1}{3}\\pi r^2 h"/>
+              <FBox label="তির্যক উচ্চতা l" tex="= \\sqrt{h^2+r^2}"/>
+              <FBox label="বক্রপৃষ্ঠ (CSA)" tex="= \\pi rl"/>
+              <FBox label="সমগ্র পৃষ্ঠ (TSA)" tex="= \\pi r(r+l)" highlight/>
               <Mem title="💡"><p>Cone = সিলিন্ডারের <strong>⅓</strong> আয়তন (একই r, h হলে)</p></Mem>
             </Card>
 
@@ -840,15 +842,15 @@ export default function MathFormulas({ onBack }) {
             <Card color="rose">
               <CardTitle>বর্গ সংক্রান্ত সূত্র (Square Identities)</CardTitle>
               <div className="mf-id-list">
-                <IdItem n="1">(a+b)² = a² + 2ab + b²</IdItem>
-                <IdItem n="2">(a−b)² = a² − 2ab + b²</IdItem>
-                <IdItem n="3">(a+b)² = (a−b)² + 4ab</IdItem>
-                <IdItem n="4">(a−b)² = (a+b)² − 4ab</IdItem>
-                <IdItem n="5">a² + b² = (a+b)² − 2ab = (a−b)² + 2ab</IdItem>
-                <IdItem n="6">2(a² + b²) = (a+b)² + (a−b)²</IdItem>
-                <IdItem n="7">a² − b² = (a+b)(a−b)</IdItem>
-                <IdItem n="8">4ab = (a+b)² − (a−b)²</IdItem>
-                <IdItem n="9">ab = [(a+b)/2]² − [(a−b)/2]²</IdItem>
+                <IdItem n="1"><Tex>{'(a+b)^2 = a^2 + 2ab + b^2'}</Tex></IdItem>
+                <IdItem n="2"><Tex>{'(a-b)^2 = a^2 - 2ab + b^2'}</Tex></IdItem>
+                <IdItem n="3"><Tex>{'(a+b)^2 = (a-b)^2 + 4ab'}</Tex></IdItem>
+                <IdItem n="4"><Tex>{'(a-b)^2 = (a+b)^2 - 4ab'}</Tex></IdItem>
+                <IdItem n="5"><Tex>{'a^2 + b^2 = (a+b)^2 - 2ab = (a-b)^2 + 2ab'}</Tex></IdItem>
+                <IdItem n="6"><Tex>{'2(a^2+b^2) = (a+b)^2 + (a-b)^2'}</Tex></IdItem>
+                <IdItem n="7"><Tex>{'a^2 - b^2 = (a+b)(a-b)'}</Tex></IdItem>
+                <IdItem n="8"><Tex>{'4ab = (a+b)^2 - (a-b)^2'}</Tex></IdItem>
+                <IdItem n="9"><Tex>{'ab = \\left[\\dfrac{a+b}{2}\\right]^2 - \\left[\\dfrac{a-b}{2}\\right]^2'}</Tex></IdItem>
               </div>
               <Mem title="💡 মনে রাখুন — সূত্র ১ ও ২">
                 <ul>
@@ -862,12 +864,12 @@ export default function MathFormulas({ onBack }) {
             <Card color="violet">
               <CardTitle color="var(--mf-violet)">তিন পদ ও ঘন সংক্রান্ত সূত্র</CardTitle>
               <div className="mf-id-list">
-                <IdItem n="10">(a+b+c)² = a²+b²+c² + 2(ab+bc+ca)</IdItem>
-                <IdItem n="11">(x+a)(x+b) = x² + (a+b)x + ab</IdItem>
-                <IdItem n="12" star>(a+b)³ = a³ + 3a²b + 3ab² + b³</IdItem>
-                <IdItem n="13">(a−b)³ = a³ − 3a²b + 3ab² − b³</IdItem>
-                <IdItem n="14">a³ + b³ = (a+b)(a²−ab+b²)</IdItem>
-                <IdItem n="15">a³ − b³ = (a−b)(a²+ab+b²)</IdItem>
+                <IdItem n="10"><Tex>{'(a+b+c)^2 = a^2+b^2+c^2+2(ab+bc+ca)'}</Tex></IdItem>
+                <IdItem n="11"><Tex>{'(x+a)(x+b) = x^2+(a+b)x+ab'}</Tex></IdItem>
+                <IdItem n="12" star><Tex>{'(a+b)^3 = a^3+3a^2b+3ab^2+b^3'}</Tex></IdItem>
+                <IdItem n="13"><Tex>{'(a-b)^3 = a^3-3a^2b+3ab^2-b^3'}</Tex></IdItem>
+                <IdItem n="14"><Tex>{'a^3+b^3 = (a+b)(a^2-ab+b^2)'}</Tex></IdItem>
+                <IdItem n="15"><Tex>{'a^3-b^3 = (a-b)(a^2+ab+b^2)'}</Tex></IdItem>
               </div>
               <Mem title="💡 ঘন সূত্র মনে রাখুন">
                 <ul>
@@ -893,14 +895,14 @@ export default function MathFormulas({ onBack }) {
               <p style={{fontSize:13,color:'var(--text-3)',marginBottom:10}}>
                 প্রথম পদ <span className="mf-fi">a</span>, সাধারণ অন্তর <span className="mf-fi">d</span>, পদসংখ্যা <span className="mf-fi">n</span>
               </p>
-              <div className="mf-series-card"><div className="step">n-তম পদ (Tₙ)</div><div className="formula">Tₙ = a + (n−1)d</div></div>
-              <div className="mf-series-card"><div className="step">n পদের সমষ্টি (Sₙ)</div><div className="formula">Sₙ = n/2 × [2a + (n−1)d]</div></div>
-              <div className="mf-series-card"><div className="step">গাণিতিক গড় (AM)</div><div className="formula">AM = (প্রথম পদ + শেষ পদ) / 2</div></div>
+              <div className="mf-series-card"><div className="step">n-তম পদ (Tₙ)</div><div className="formula"><Tex>{'T_n = a + (n-1)d'}</Tex></div></div>
+              <div className="mf-series-card"><div className="step">n পদের সমষ্টি (Sₙ)</div><div className="formula"><Tex>{'S_n = \\dfrac{n}{2}\\bigl[2a + (n-1)d\\bigr]'}</Tex></div></div>
+              <div className="mf-series-card"><div className="step">গাণিতিক গড় (AM)</div><div className="formula"><Tex>{'\\text{AM} = \\dfrac{\\text{প্রথম} + \\text{শেষ পদ}}{2}'}</Tex></div></div>
               <div style={{background:'var(--elevated)',borderRadius:8,padding:12,marginTop:10,borderLeft:'3px solid #0fdba8'}}>
                 <div style={{color:'var(--mf-teal)',fontSize:13,fontWeight:700,marginBottom:8}}>বিশেষ সমষ্টি সূত্র</div>
-                <FBox label="1+2+...+n" val="= n(n+1)/2"/>
-                <FBox label="1²+2²+...+n²" val="= n(n+1)(2n+1)/6"/>
-                <FBox label="1³+2³+...+n³" val="= [n(n+1)/2]²" highlight/>
+                <FBox label="1+2+...+n" tex="= \\dfrac{n(n+1)}{2}"/>
+                <FBox label="1²+2²+...+n²" tex="= \\dfrac{n(n+1)(2n+1)}{6}"/>
+                <FBox label="1³+2³+...+n³" tex="= \\left[\\dfrac{n(n+1)}{2}\\right]^2" highlight/>
               </div>
               <Mem title="💡 মনে রাখুন">
                 <ul>
@@ -915,12 +917,12 @@ export default function MathFormulas({ onBack }) {
               <p style={{fontSize:13,color:'var(--text-3)',marginBottom:10}}>
                 প্রথম পদ <span className="mf-fi">a</span>, সাধারণ অনুপাত <span className="mf-fi">r</span>, পদসংখ্যা <span className="mf-fi">n</span>
               </p>
-              <div className="mf-series-card"><div className="step">n-তম পদ</div><div className="formula">Tₙ = a × r^(n−1)</div></div>
+              <div className="mf-series-card"><div className="step">n-তম পদ</div><div className="formula"><Tex>{'T_n = a \\cdot r^{n-1}'}</Tex></div></div>
               <div className="mf-series-card" style={{borderLeft:'3px solid #f0a500'}}>
                 <div className="step">n পদের সমষ্টি — r &gt; 1 হলে</div>
-                <div className="formula">Sₙ = a × (rⁿ − 1) / (r − 1)</div>
+                <div className="formula"><Tex>{'S_n = \\dfrac{a(r^n - 1)}{r - 1}'}</Tex></div>
               </div>
-              <div className="mf-series-card"><div className="step">n পদের সমষ্টি — r &lt; 1 হলে</div><div className="formula">Sₙ = a × (1 − rⁿ) / (1 − r)</div></div>
+              <div className="mf-series-card"><div className="step">n পদের সমষ্টি — r &lt; 1 হলে</div><div className="formula"><Tex>{'S_n = \\dfrac{a(1 - r^n)}{1 - r}'}</Tex></div></div>
               <Mem title="💡 AP vs GP পার্থক্য">
                 <ul>
                   <li><strong>AP:</strong> যোগ/বিয়োগ → পরের পদ (d = ধ্রুবক পার্থক্য)</li>
@@ -942,9 +944,9 @@ export default function MathFormulas({ onBack }) {
           <div className="mf-grid2">
             <Card color="violet">
               <CardTitle color="var(--mf-violet)">বিন্যাস — Permutation (সাজানো)</CardTitle>
-              <FBox label="nPr" val="= n! / (n−r)!"/>
+              <FBox label="nPr" tex="= \\dfrac{n!}{(n-r)!}"/>
               <FBox label="n বস্তু বৃত্তাকারে" val="= (n−1)!" highlight/>
-              <FBox label="n ভিন্ন বস্তু গলায় (Necklace)" val="= (n−1)! / 2"/>
+              <FBox label="n ভিন্ন বস্তু গলায় (Necklace)" tex="= \\dfrac{(n-1)!}{2}"/>
               <Mem title="💡 বৃত্তাকার বিন্যাস">
                 <p>বৃত্তে একটি ধরে রাখা যায় → বাকি (n-1)টি সাজানো হয় → (n-1)!</p>
               </Mem>
@@ -952,14 +954,14 @@ export default function MathFormulas({ onBack }) {
 
             <Card color="teal">
               <CardTitle color="var(--mf-teal)">সমাবেশ — Combination (বাছাই)</CardTitle>
-              <FBox label="nCr" val="= n! / [r! × (n−r)!]"/>
+              <FBox label="nCr" tex="= \\dfrac{n!}{r!\\,(n-r)!}"/>
               <FBox label="nC0 = nCn" val="= 1"/>
               <FBox label="nCr + nC(r-1)" val="= (n+1)Cr" highlight/>
               <div style={{background:'var(--elevated)',borderRadius:8,padding:12,marginTop:10,borderLeft:'3px solid #f0a500'}}>
                 <div style={{color:'var(--mf-gold)',fontSize:13,fontWeight:700,marginBottom:8}}>Handshake ও Graph সমস্যা</div>
-                <FBox label="n জনের Handshake" val="= n(n−1)/2"/>
+                <FBox label="n জনের Handshake" tex="= \\dfrac{n(n-1)}{2}"/>
                 <FBox label="n জনের চিঠি (দু-দিকে)" val="= n(n−1)"/>
-                <FBox label="n বাহুর বহুভুজের কর্ণ" val="= n(n−3)/2"/>
+                <FBox label="n বাহুর বহুভুজের কর্ণ" tex="= \\dfrac{n(n-3)}{2}"/>
               </div>
               <Mem title="💡 Handshake vs চিঠি">
                 <p>Handshake = <strong>÷2</strong> (A-B ও B-A একই)<br/>
@@ -977,8 +979,8 @@ export default function MathFormulas({ onBack }) {
               <CardTitle>সেট তত্ত্ব (Set Theory)</CardTitle>
               <FBox label="n(A∪B)" val="= n(A) + n(B) − n(A∩B)"/>
               <FBox label="n(A∪B∪C)" val="= n(A)+n(B)+n(C) − n(A∩B) − n(B∩C) − n(A∩C) + n(A∩B∩C)"/>
-              <FBox label="প্রকৃত উপসেট" val="= 2ⁿ − 1"/>
-              <FBox label="শক্তি সেট P(A)" val="= 2ⁿ" highlight/>
+              <FBox label="প্রকৃত উপসেট" tex="= 2^n - 1"/>
+              <FBox label="শক্তি সেট P(A)" tex="= 2^n" highlight/>
               <div style={{background:'var(--elevated)',borderRadius:8,padding:10,marginTop:8}}>
                 <div style={{fontSize:13,color:'var(--mf-gold)',marginBottom:6,fontWeight:700}}>De Morgan's Law</div>
                 <FBox label="(A∪B)' =" val="A' ∩ B'"/>
@@ -1026,8 +1028,8 @@ export default function MathFormulas({ onBack }) {
 
             <Card color="blue">
               <CardTitle color="var(--mf-blue)">ভগ্নাংশের ল.সা.গু ও গ.সা.গু</CardTitle>
-              <FBox label="ভগ্নাংশের ল.সা.গু" val="= লবগুলোর ল.সা.গু / হরগুলোর গ.সা.গু" highlight/>
-              <FBox label="ভগ্নাংশের গ.সা.গু" val="= লবগুলোর গ.সা.গু / হরগুলোর ল.সা.গু"/>
+              <FBox label="ভগ্নাংশের ল.সা.গু" tex="= \\dfrac{\\text{লবগুলোর ল.সা.গু}}{\\text{হরগুলোর গ.সা.গু}}" highlight/>
+              <FBox label="ভগ্নাংশের গ.সা.গু" tex="= \\dfrac{\\text{লবগুলোর গ.সা.গু}}{\\text{হরগুলোর ল.সা.গু}}"/>
               <Mem title="💡 মনে রাখার সহজ উপায়">
                 <p><strong>ল.সা.গু:</strong> লব-এ ল, হর-এ গ<br/>
                 <strong>গ.সা.গু:</strong> উল্টো — লব-এ গ, হর-এ ল</p>
@@ -1078,11 +1080,16 @@ function CardTitle({ color, badge, badgeStyle, children }) {
   )
 }
 
-function FBox({ label, val, highlight }) {
+function Tex({ children }) {
+  const html = katex.renderToString(children, { throwOnError: false, displayMode: false })
+  return <span className="mf-tex" dangerouslySetInnerHTML={{ __html: html }} />
+}
+
+function FBox({ label, val, tex, highlight }) {
   return (
     <div className={`mf-f-box${highlight ? ' highlight' : ''}`}>
       <span className="label">{label}</span>
-      <span className="val">{val}</span>
+      {tex ? <span className="val"><Tex>{tex}</Tex></span> : <span className="val">{val}</span>}
     </div>
   )
 }
