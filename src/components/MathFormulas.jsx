@@ -17,6 +17,7 @@ const SECTIONS = [
   { id: 'pnc',      label: 'বিন্যাস-সমাবেশ' },
   { id: 'set',      label: 'সেট ও সম্ভাবনা' },
   { id: 'lcm',      label: 'ল.সা.গু-গ.সা.গু' },
+  { id: 'profit',   label: 'মুনাফা' },
 ]
 
 export default function MathFormulas({ onBack }) {
@@ -1036,6 +1037,61 @@ export default function MathFormulas({ onBack }) {
               </Mem>
             </Card>
           </div>
+        </div>
+
+        {/* ══ S13: PROFIT / INTEREST ════════════════════════════ */}
+        <div className="mf-section" id="profit">
+          <SectionHeader icon="৳" title="সরল ও চক্রবৃদ্ধি মুনাফা" sub="Simple Interest · Compound Interest · Difference" />
+          <div className="mf-grid2">
+            <Card color="teal">
+              <CardTitle color="var(--mf-teal)">সরল মুনাফা (Simple Interest)</CardTitle>
+              <FBox label="সরল মুনাফা (I)" tex={"= \\dfrac{Pnr}{100}"}/>
+              <FBox label="মোট পরিমাণ (A)" tex={"= P + I = P\\left(1 + \\dfrac{nr}{100}\\right)"} highlight/>
+              <p style={{fontSize:12, color:'var(--text-3)', marginTop:6}}>
+                P = মূলধন, n = বছর, r = বার্ষিক হার (%)
+              </p>
+            </Card>
+
+            <Card color="gold">
+              <CardTitle color="var(--mf-gold)">চক্রবৃদ্ধি মুনাফা (Compound Interest)</CardTitle>
+              <FBox label="মোট পরিমাণ (A)" tex={"= P\\left(1 + \\dfrac{r}{100}\\right)^n"} highlight/>
+              <FBox label="চক্রবৃদ্ধি মুনাফা" tex={"= A - P"}/>
+              <p style={{fontSize:12, color:'var(--text-3)', marginTop:6}}>
+                P = মূলধন, n = বছর, r = বার্ষিক হার (%)
+              </p>
+            </Card>
+          </div>
+
+          <Card color="rose" style={{marginTop:14}}>
+            <CardTitle color="var(--mf-rose)">সরল ও চক্রবৃদ্ধি মুনাফার পার্থক্য</CardTitle>
+            <div className="mf-legend" style={{marginBottom:12}}>
+              <span><strong>P</strong> = মূলধন</span>
+              <span><strong>r</strong> = হার ÷ 100 (দশমিকে)</span>
+              <span><strong>n</strong> = বছর</span>
+            </div>
+            <div className="mf-grid2">
+              <div>
+                <FBox label="2 বছরের পার্থক্য" tex={"= Pr^2"} highlight/>
+                <p style={{fontSize:12, color:'var(--text-3)', marginTop:4, textAlign:'center'}}>
+                  যেমন: P=3000, r=10%=0.1 → 3000×0.01 = 30
+                </p>
+              </div>
+              <div>
+                <FBox label="3 বছরের পার্থক্য" tex={"= 3Pr^2 + Pr^3"} highlight/>
+                <p style={{fontSize:12, color:'var(--text-3)', marginTop:4, textAlign:'center'}}>
+                  যেমন: P=100, r=5%=0.05 → 3×100×0.0025 + 100×0.000125
+                </p>
+              </div>
+            </div>
+            <Mem title="💡 মনে রাখুন">
+              <ul>
+                <li>r সবসময় <strong>দশমিকে</strong> দাও — হার ÷ 100 (যেমন 5% → 0.05)</li>
+                <li>2 বছর → শুধু <strong>Pr²</strong> (একটি পদ)</li>
+                <li>3 বছর → <strong>3Pr² + Pr³</strong> (দুটি পদ)</li>
+                <li>পার্থক্য = চক্রবৃদ্ধি − সরল মুনাফা</li>
+              </ul>
+            </Mem>
+          </Card>
         </div>
 
         {/* Footer */}
