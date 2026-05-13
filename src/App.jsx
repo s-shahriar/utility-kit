@@ -27,12 +27,10 @@ export default function App() {
         <div className="bg-grid" />
       </div>
 
-      {/* Theme toggle only on home screen — matches ICT quiz behaviour */}
-      {screen === 'home' && (
-        <button className="theme-toggle" onClick={toggleTheme} title="Toggle theme">
-          {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
-        </button>
-      )}
+      {/* Theme toggle — always visible, fixed top-right */}
+      <button className="theme-toggle" onClick={toggleTheme} title="Toggle theme">
+        {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+      </button>
 
       {screen === 'home' && <HomeScreen onOpen={openTool} />}
       {screen === 'tool' && activeToolId === 'math_formulas'   && <MathFormulas   onBack={goHome} />}

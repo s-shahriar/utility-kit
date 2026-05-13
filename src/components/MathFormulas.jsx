@@ -113,8 +113,12 @@ export default function MathFormulas({ onBack }) {
                 </svg>
               </div>
               <FBox label="পরিসীমা" val="= 3a"/>
+              <FBox label="বাহু (মধ্যমা h → a)" tex={"a = \\dfrac{2}{\\sqrt{3}}\\,h"}/>
               <FBox label="ক্ষেত্রফল" tex={"= \\dfrac{\\sqrt{3}}{4}\\,a^2"} highlight/>
-              <Mem title="💡 মনে রাখুন"><p>সব বাহু সমান = শুধু "a" — সূত্রে অন্য কোনো অক্ষর নেই।</p></Mem>
+              <Mem title="💡 মনে রাখুন">
+                <p>সব বাহু সমান = শুধু "a" — সূত্রে অন্য কোনো অক্ষর নেই।</p>
+                <p style={{marginTop:6}}><strong>h = মধ্যমা</strong> — সমবাহু ত্রিভুজে উচ্চতা, মধ্যমা ও কোণের সমদ্বিখণ্ডক একই রেখা।</p>
+              </Mem>
             </Card>
 
             <Card color="blue">
@@ -899,11 +903,16 @@ export default function MathFormulas({ onBack }) {
               <div className="mf-series-card"><div className="step">n-তম পদ (Tₙ)</div><div className="formula"><Tex>{"T_n = a + (n-1)d"}</Tex></div></div>
               <div className="mf-series-card"><div className="step">n পদের সমষ্টি (Sₙ)</div><div className="formula"><Tex>{"S_n = \\dfrac{n}{2}\\bigl[2a+(n-1)d\\bigr]"}</Tex></div></div>
               <div className="mf-series-card"><div className="step">গাণিতিক গড় (AM)</div><div className="formula">AM = (প্রথম পদ + শেষ পদ) / 2</div></div>
+              <div className="mf-series-card" style={{borderLeft:'3px solid #a78bfa'}}>
+                <div className="step">পদ সংখ্যা (Number of Terms)</div>
+                <div className="formula"><Tex>{"n = \\dfrac{\\text{শেষ পদ} - \\text{প্রথম পদ}}{\\text{সা. অন্তর}} + 1"}</Tex></div>
+              </div>
               <div style={{background:'var(--elevated)',borderRadius:8,padding:12,marginTop:10,borderLeft:'3px solid #0fdba8'}}>
                 <div style={{color:'var(--mf-teal)',fontSize:13,fontWeight:700,marginBottom:8}}>বিশেষ সমষ্টি সূত্র</div>
                 <FBox label="1+2+...+n" tex={"= \\dfrac{n(n+1)}{2}"}/>
                 <FBox label="1²+2²+...+n²" tex={"= \\dfrac{n(n+1)(2n+1)}{6}"}/>
                 <FBox label="1³+2³+...+n³" tex={"= \\left[\\dfrac{n(n+1)}{2}\\right]^2"} highlight/>
+                <FBox label="2+4+6+...+2L" tex={"= L(L+1)"} highlight/>
               </div>
               <Mem title="💡 মনে রাখুন">
                 <ul>
@@ -922,8 +931,26 @@ export default function MathFormulas({ onBack }) {
               <div className="mf-series-card" style={{borderLeft:'3px solid #f0a500'}}>
                 <div className="step">n পদের সমষ্টি — r &gt; 1 হলে</div>
                 <div className="formula"><Tex>{"S_n = \\dfrac{a(r^n-1)}{r-1}"}</Tex></div>
+                <div style={{fontSize:12, color:'var(--text-3)', marginTop:6}}>
+                  যেমন: <strong>2 + 4 + 8 + 16 + ... + 1024</strong> → r = 2, শেষ আছে (সশীম)
+                </div>
               </div>
-              <div className="mf-series-card"><div className="step">n পদের সমষ্টি — r &lt; 1 হলে</div><div className="formula"><Tex>{"S_n = \\dfrac{a(1-r^n)}{1-r}"}</Tex></div></div>
+              <div className="mf-series-card">
+                <div className="step">n পদের সমষ্টি — r &lt; 1 হলে</div>
+                <div className="formula"><Tex>{"S_n = \\dfrac{a(1-r^n)}{1-r}"}</Tex></div>
+                <div style={{fontSize:12, color:'var(--text-3)', marginTop:6}}>
+                  যেমন: <strong>1 + 0.1 + 0.01 + ... + 0.00001</strong> → r = 0.1, শেষ আছে (সশীম)
+                </div>
+              </div>
+              <div className="mf-series-card" style={{borderLeft:'3px solid #f06d7e', background:'rgba(240,108,126,.06)'}}>
+                <div className="step">অশীম পদের সমষ্টি (S∞) — শর্ত: <strong style={{color:'var(--mf-rose)'}}>−1 &lt; r &lt; 1</strong></div>
+                <div className="formula"><Tex>{"S_\\infty = \\dfrac{a}{1-r}"}</Tex></div>
+                <div style={{fontSize:12, color:'var(--text-3)', marginTop:8, lineHeight:1.6}}>
+                  <strong style={{color:'var(--mf-rose)'}}>অশীম ধারা</strong> = যে ধারার শেষ নেই (∞ পদ)<br/>
+                  যেমন: <strong>1 + 0.1 + 0.01 + 0.001 + ...</strong> → r = 0.1, শেষ নেই কিন্তু যোগফল আছে<br/>
+                  এই সূত্র শুধু তখনই কাজ করে যখন <strong>|r| &lt; 1</strong> (r এর মান −1 থেকে 1 এর মধ্যে)
+                </div>
+              </div>
               <Mem title="💡 AP vs GP পার্থক্য">
                 <ul>
                   <li><strong>AP:</strong> যোগ/বিয়োগ → পরের পদ (d = ধ্রুবক পার্থক্য)</li>
@@ -975,6 +1002,58 @@ export default function MathFormulas({ onBack }) {
         {/* ══ S11: SET & PROBABILITY ════════════════════════════ */}
         <div className="mf-section" id="set">
           <SectionHeader icon="∩" title="সেট তত্ত্ব ও সম্ভাবনা" sub="Set Theory · Probability" />
+
+          {/* Venn diagram visual guide */}
+          <Card color="violet" style={{marginBottom:16}}>
+            <CardTitle color="var(--mf-violet)">ভেন চিত্র — অঞ্চল বোঝার সহজ উপায়</CardTitle>
+            <div style={{display:'flex', flexWrap:'wrap', gap:20, alignItems:'center', justifyContent:'center', margin:'10px 0'}}>
+              {/* SVG Venn Diagram */}
+              <svg width="220" height="150" viewBox="0 0 220 150">
+                {/* Universal set box */}
+                <rect x="5" y="10" width="210" height="130" rx="8" fill="none" stroke="#a78bfa" strokeWidth="1.5"/>
+                <text x="205" y="24" textAnchor="end" fill="#a78bfa" fontSize="12" fontWeight="700">U</text>
+                {/* Circle A */}
+                <ellipse cx="85" cy="75" rx="52" ry="45" fill="rgba(91,164,245,.12)" stroke="#5ba4f5" strokeWidth="2"/>
+                {/* Circle B */}
+                <ellipse cx="135" cy="75" rx="52" ry="45" fill="rgba(15,219,168,.12)" stroke="#0fdba8" strokeWidth="2"/>
+                {/* Labels */}
+                <text x="48" y="30" fill="#5ba4f5" fontSize="13" fontWeight="700">A</text>
+                <text x="166" y="30" fill="#0fdba8" fontSize="13" fontWeight="700">B</text>
+                {/* Region numbers */}
+                <text x="68" y="80" textAnchor="middle" fill="#5ba4f5" fontSize="16" fontWeight="800">1</text>
+                <text x="110" y="80" textAnchor="middle" fill="#a78bfa" fontSize="16" fontWeight="800">2</text>
+                <text x="152" y="80" textAnchor="middle" fill="#0fdba8" fontSize="16" fontWeight="800">3</text>
+                <text x="195" y="120" textAnchor="middle" fill="#f0a500" fontSize="16" fontWeight="800">4</text>
+                {/* A∩B label */}
+                <text x="110" y="128" textAnchor="middle" fill="#a78bfa" fontSize="10">A∩B</text>
+              </svg>
+
+              {/* Legend */}
+              <div style={{fontSize:13, lineHeight:2}}>
+                <div><span style={{display:'inline-block',width:20,height:20,borderRadius:4,background:'rgba(91,164,245,.2)',border:'1.5px solid #5ba4f5',textAlign:'center',fontWeight:700,color:'#5ba4f5',fontSize:12,lineHeight:'20px',marginRight:8}}>1</span><strong>শুধু A</strong> — A-তে আছে, B-তে নেই</div>
+                <div><span style={{display:'inline-block',width:20,height:20,borderRadius:4,background:'rgba(167,139,250,.2)',border:'1.5px solid #a78bfa',textAlign:'center',fontWeight:700,color:'#a78bfa',fontSize:12,lineHeight:'20px',marginRight:8}}>2</span><strong>A∩B (ছেদ)</strong> — উভয়তে আছে</div>
+                <div><span style={{display:'inline-block',width:20,height:20,borderRadius:4,background:'rgba(15,219,168,.2)',border:'1.5px solid #0fdba8',textAlign:'center',fontWeight:700,color:'#0fdba8',fontSize:12,lineHeight:'20px',marginRight:8}}>3</span><strong>শুধু B</strong> — B-তে আছে, A-তে নেই</div>
+                <div><span style={{display:'inline-block',width:20,height:20,borderRadius:4,background:'rgba(240,165,0,.15)',border:'1.5px solid #f0a500',textAlign:'center',fontWeight:700,color:'#f0a500',fontSize:12,lineHeight:'20px',marginRight:8}}>4</span><strong>(A∪B)' বাইরে</strong> — কোনোটিতেই নেই</div>
+              </div>
+            </div>
+
+            {/* Quick reference */}
+            <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(150px,1fr))', gap:8, marginTop:8}}>
+              {[
+                {label:'A∪B (যেকোনো একটি)', val:'= 1 + 2 + 3', color:'#5ba4f5'},
+                {label:'A∩B (উভয়ই)', val:'= 2', color:'#a78bfa'},
+                {label:'শুধু A', val:'= 1', color:'#5ba4f5'},
+                {label:'শুধু B', val:'= 3', color:'#0fdba8'},
+                {label:"(A∪B)' (বাইরে)", val:'= 4', color:'#f0a500'},
+              ].map(r => (
+                <div key={r.label} style={{background:'var(--elevated)', borderRadius:8, padding:'7px 10px', borderLeft:`3px solid ${r.color}`}}>
+                  <div style={{fontSize:11, color:'var(--text-3)'}}>{r.label}</div>
+                  <div style={{fontSize:14, fontWeight:700, color:r.color}}>{r.val}</div>
+                </div>
+              ))}
+            </div>
+          </Card>
+
           <div className="mf-grid2">
             <Card color="gold">
               <CardTitle>সেট তত্ত্ব (Set Theory)</CardTitle>

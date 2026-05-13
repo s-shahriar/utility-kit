@@ -133,7 +133,7 @@ button { cursor: pointer; border: none; background: none; color: inherit; font-f
 /* ── Theme Toggle ─────────────────────────────────── */
 .theme-toggle {
   position: fixed;
-  top: max(16px, env(safe-area-inset-top));
+  top: max(8px, env(safe-area-inset-top));
   right: max(16px, env(safe-area-inset-right));
   z-index: 200;
   width: 44px; height: 44px;

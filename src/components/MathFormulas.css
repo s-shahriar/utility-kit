@@ -38,7 +38,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 18px;
+  padding: 12px 72px 12px 18px; /* right pad for fixed theme toggle */
   box-shadow: var(--shadow-sm);
 }
 
