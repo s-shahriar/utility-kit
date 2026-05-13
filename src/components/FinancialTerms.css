@@ -198,6 +198,21 @@
 }
 .ft-card-body .abbr-val { color: var(--text-2); font-size: 12px; }
 
+
+@media (max-width: 640px) {
+  .ft-grid {
+    grid-template-columns: 1fr;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .ft-filter-wrap,
+  .ft-search-wrap {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
 /* ── Responsive — mobile-first ────────────────── */
 /* ft-grid already uses auto-fill minmax(300px,1fr) — 1-col on narrow screens intrinsically.
    The card subtitle is kept at 12px intentionally (label-level text, not body copy). */
